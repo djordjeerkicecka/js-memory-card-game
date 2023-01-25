@@ -21,158 +21,249 @@ body {
 	width: 100vw;
 	height: 100vh;
 	background: var(--primary);
-    color: var(--light);
-    overflow: hidden;
+	color: var(--light);
+	overflow: hidden;
 }
 
 /* View Styles */
 
 .view {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: var(--primary);
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: var(--primary);
+	display: flex;
+	align-items: center;
+	flex-direction: column;
 }
 
 @keyframes SlideOutToRight {
-    0% {
-        left: 0;
-    }
+	0% {
+		left: 0;
+	}
 
-    100% {
-        left: 100%;
-    }
+	100% {
+		left: 100%;
+	}
 }
 
 @keyframes SlideInFromRight {
-    0% {
-        left: 100%;
-    }
+	0% {
+		left: 100%;
+	}
 
-    100% {
-        left: 0;
-    }
+	100% {
+		left: 0;
+	}
 }
 
-@keyframes SlideOutToLeft{
-    0% {
-        left: 0;
-    }
+@keyframes SlideOutToLeft {
+	0% {
+		left: 0;
+	}
 
-    100% {
-        left: -100%;
-    }
+	100% {
+		left: -100%;
+	}
 }
 
 @keyframes SlideInFromLeft {
-    0% {
-        left: -100%;
-    }
+	0% {
+		left: -100%;
+	}
 
-    100% {
-        left: 0;
-    }
+	100% {
+		left: 0;
+	}
 }
 
 /* View - Welcome */
 
 #welcome {
-    padding-top: 17rem;
+	padding-top: 17rem;
 }
 
 #welcome h1 {
-    font-size: 3rem;
-    font-weight: 300;
+	font-size: 3rem;
+	font-weight: 300;
 }
 
 #welcome nav {
-    margin: 2rem 0;
+	margin: 2rem 0;
 }
 
-#welcome nav button{
-    font-size: 1.7rem;
-    padding: 1rem 2rem;
-    margin-inline-end: 2rem;
-    border: none;
-    cursor: pointer;
-    background: var(--secondary);
-    color: var(--light);
-    transition: background .35s ease-in-out;
+#welcome nav button {
+	font-size: 1.7rem;
+	padding: 1rem 2rem;
+	margin-inline-end: 2rem;
+	border: none;
+	cursor: pointer;
+	background: var(--secondary);
+	color: var(--light);
+	transition: background 0.35s ease-in-out;
 }
 
 #welcome nav button:is(:active, :hover, :focus) {
-    background: var(--terciary);
+	background: var(--terciary);
 }
 
 #welcome h3 {
-    font-weight: 300;
-    font-size: 2rem;
+	font-weight: 300;
+	font-size: 2rem;
 }
 
 #welcome h3 #leaderboard {
-    text-decoration: none;
-    color: var(--terciary);
-    position: relative;
+	text-decoration: none;
+	color: var(--terciary);
+	position: relative;
 }
 
 #welcome h3 #leaderboard:is(:active, :hover, :focus)::after {
-    width: 100%;
+	width: 100%;
 }
 
 #welcome h3 #leaderboard::after {
-    content: "";
-    display: block;
-    height: 2px;
-    width: 0;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    background: var(--terciary);
-    transition: width .35s ease-in;
+	content: '';
+	display: block;
+	height: 2px;
+	width: 0;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	background: var(--terciary);
+	transition: width 0.35s ease-in;
 }
-
-
 
 /* View - Game*/
 
 #game {
-    justify-content: space-around;
+	left: 100%;
+	justify-content: space-around;
 }
 
-#game header{
-    width: 70%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+#game header {
+	width: 70%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 #game header h2 {
-    font-size: 2rem;
-    font-weight: 300;
+	font-size: 2rem;
+	font-weight: 300;
 }
 
 #game header h3 {
-    font-weight: 300;
-    font-size: 1.5rem;
-    align-self: flex-end;
+	font-weight: 300;
+	font-size: 1.5rem;
+	align-self: flex-end;
 }
 
 #game .game-grid {
-    border: 1rem solid var(--terciary);
-    border-radius: 2rem;
-    height: 90%;
-    width: 70%;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    gap: 1rem;
-    padding: 1rem;
+	border: 1rem solid var(--terciary);
+	border-radius: 2rem;
+	height: 90%;
+	width: 70%;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	grid-template-rows: repeat(5, 1fr);
+	gap: 1rem;
+	padding: 1rem;
 }
 
 #game .game-grid .card {
-    background: #fff;
-    border-radius: 1rem;
+	background: #fff;
+	border-radius: 1rem;
+}
+
+/* Modal Styles */
+
+.modal {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: rgba(51, 51, 51, 0.3);
+}
+
+.modal-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	background: var(--secondary);
+	padding: 5rem;
+	border: 1rem solid var(--terciary);
+	border-radius: 2rem;
+}
+
+.modal-wrapper h2 {
+	font-size: 2.2rem;
+	font-weight: 400;
+	text-transform: uppercase;
+}
+
+.modal-wrapper > h3 {
+	font-size: 1.5rem;
+	font-weight: 300;
+	margin-block: 1rem 2rem;
+}
+
+.modal-wrapper > h3::after {
+	content: '';
+	display: block;
+	height: 3px;
+	width: 100%;
+	margin-top: 2rem;
+	background: var(--light);
+}
+
+.modal-wrapper nav h3 {
+	font-size: 1.3rem;
+	font-weight: 300;
+	text-align: center;
+	margin-bottom: 1rem;
+}
+
+.modal-wrapper nav button {
+	margin-top: 1rem;
+	padding: 1rem 1rem;
+	font-size: 1.2rem;
+	border: 2px solid transparent;
+	background: transparent;
+	cursor: pointer;
+	transition: all 0.35s ease-in-out;
+}
+
+.modal-wrapper nav button.btn-yes {
+	color: var(--light);
+	background-color: var(--terciary);
+	border-color: var(--terciary);
+}
+
+.modal-wrapper nav button.btn-yes:is(:hover, :active, :focus) {
+	background: var(--primary);
+}
+
+.modal-wrapper nav button.btn-no {
+	color: var(--light);
+	position: relative;
+}
+
+.modal-wrapper nav button.btn-no:is(:hover, :active, :focus)::after {
+	width: 84%;
+}
+
+.modal-wrapper nav button.btn-no::after {
+	content: '';
+	display: block;
+	width: 0;
+	position: absolute;
+	height: 2px;
+	bottom: 15%;
+	left: 0.9rem;
+	background: var(--light);
+	transition: width 0.35s ease-in-out;
 }

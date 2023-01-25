@@ -61,13 +61,16 @@
 
         <!-- Game Over Modal -->
         <section class="modal game-over" id="game-over">
-            <h2>Game over! You Matched <span id="matches">X</span> tiles in <span id="time">Y</span> seconds</h2>
-       
-            <form>
-                <h2>To save your score, enter your name</h2>
-                <input id="input-field" type="text">
-                <button>Save my score</button>
-            </form>
+            <section class="modal-wrapper">
+                <h2>Game over!</h2>
+                <h3> You matched <span id="matches">X</span> tiles in <span id="time">Y</span> seconds</h3>
+                
+                <nav>
+                    <h3>Want to try again?</h3>
+                    <button class="btn-yes" id="play-again-yes">Yes! Try Again</button>
+                    <button class="btn-no" id="play-again-no">No. End the game</button>
+                </nav>
+            </section>
         </section>
 
         <!-- Rankings Modal -->
