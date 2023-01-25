@@ -23,3 +23,85 @@ body {
 	background: var(--primary);
     color: var(--light);
 }
+
+/* View Styles */
+
+.view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary);
+    display: none;
+    align-items: center;
+}
+
+.view.visible {
+    display: flex;
+    flex-direction: column;
+}
+
+/* View - Welcome */
+
+#welcome {
+    padding-top: 17rem;
+}
+
+#welcome h1 {
+    font-size: 3rem;
+    font-weight: 300;
+}
+
+#welcome nav {
+    margin: 2rem 0;
+}
+
+#welcome nav button{
+    font-size: 1.7rem;
+    padding: 1rem 2rem;
+    margin-inline-end: 2rem;
+    border: none;
+    cursor: pointer;
+    background: var(--secondary);
+    color: var(--light);
+    transition: background .35s ease-in-out;
+}
+
+#welcome nav button:is(:active, :hover, :focus) {
+    background: var(--terciary);
+}
+
+#welcome h3 {
+    font-weight: 300;
+    font-size: 2rem;
+}
+
+#welcome h3 #leaderboard {
+    text-decoration: none;
+    color: var(--terciary);
+    position: relative;
+}
+
+#welcome h3 #leaderboard:is(:active, :hover, :focus)::after {
+    width: 100%;
+}
+
+#welcome h3 #leaderboard::after {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: var(--terciary);
+    transition: width .35s ease-in;
+}
+
+
+/* View - Game*/
+
+#game {
+    display: none;
+}
