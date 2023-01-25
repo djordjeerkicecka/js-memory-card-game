@@ -50,3 +50,98 @@ const formElement = document.getElementById('input-form');
 // Leaderboard
 const tableBody = document.getElementById('table-body');
 const btnPlayAgain = document.getElementById('play-again');
+
+// Slide view from right to left
+function slideViewFromRightToLeft() {
+    const ATTRIBUTE_VALUE = '2s ease-in-out forwards';
+
+    viewWelcome.style.animation = `SlideOutToLeft ${ATTRIBUTE_VALUE}`;
+    viewGame.style.animation = `SlideInFromRight ${ATTRIBUTE_VALUE}`;
+}
+
+// Slide view from left to right
+function slideViewFromLeftToRight() {
+    const ATTRIBUTE_VALUE = '2s ease-in-out forwards';
+    viewWelcome.style.animation = `SlideInFromLeft ${ATTRIBUTE_VALUE}`;
+    viewGame.style.animation = `SlideOutToRight ${ATTRIBUTE_VALUE}`;
+} 
+
+// Return a random selection of objects 
+function getRandomisedArray(array, length) {
+    let arrayCopy = [...array];
+    let randomisedArray = [];
+
+    while(randomisedArray.length < length)  {
+        // Get random array item
+        let arrayItem = arrayCopy[generateRandomNumber(arrayCopy.length)];
+        let indexOfItem = arrayCopy.indexOf(arrayItem);
+
+        randomisedArray.push(arrayItem);
+        arrayCopy.splice(indexOfItem, 1);
+    }
+
+    return randomisedArray;
+
+    function generateRandomNumber(multiplier) {
+        return Math.floor(Math.random() * multiplier)
+    }
+} 
+
+// Load required number of objects
+function loadObjects(objectsSource, objectsToLoad) {
+    let arrayFromSource = [];
+
+    Object.values(objectsSource).forEach(value => arrayFromSource.push(value));
+
+    let randomisedArray = getRandomisedArray(arrayFromSource, objectsToLoad);
+
+    return randomisedArray;
+}
+
+
+// Generate HTML elements from array 
+function generateHTML(sources) {
+    sources.forEach( item => {
+        let newNode = document.createElement('div');
+        newNode.classList.add('card');
+        newNode.setAttribute('data-id', item.id);
+        newNode.innerHTML = generateCardData(item.id, item.src);
+
+        console.log(newNode)
+
+        function generateCardData(id, src) {
+            return `<img class="card-img" src="${src}" alt="tile#${id}">`;
+        }
+
+        gameGrid.appendChild(newNode);
+    });
+}
+
+// Start game with selected difficulty
+function startGame(difficulty) {
+    let objectsToLoad;
+
+    switch(difficulty) {
+        case 'EASY': 
+            objectsToLoad = 12;
+            break;
+        case 'MEDIUM': 
+            objectsToLoad = 16;
+            break;
+        case 'HARD': 
+            objectsToLoad = 20;
+            break;
+        default: 
+            break;
+    }
+
+    let loadedObjects = loadObjects(TILES_SOURCE, objectsToLoad);
+
+    generateHTML(loadedObjects)
+
+    slideViewFromRightToLeft();
+}
+
+btnEasy.addEventListener('click', () => startGame('EASY'));
+btnMedium.addEventListener('click', () => startGame('MEDIUM'));
+btnHard.addEventListener('click', () => startGame('HARD'));
