@@ -136,7 +136,7 @@ body {
 
 /* View - Game*/
 
-.game-view{
+.game-view {
 	left: 100%;
 	justify-content: space-around;
 }
@@ -268,7 +268,17 @@ body {
 	transition: width 0.35s ease-in-out;
 }
 
+/* Game Over Modal */ 
+
+.game-over {
+    display: none;
+}
+
+
 /* Player Register Modal */
+.player-register {
+    display: none;
+}
 
 .player-register .modal-wrapper {
 	width: 55%;
@@ -279,8 +289,8 @@ body {
 	text-align: center;
 	text-transform: initial;
 	margin-bottom: 2rem;
-    font-size: 1.8rem;
-    padding-inline: 1.5rem;
+	font-size: 1.8rem;
+	padding-inline: 1.5rem;
 }
 
 .player-register .modal-wrapper form {
@@ -300,7 +310,7 @@ body {
 	color: var(--light);
 }
 .player-register form input::placeholder {
-    color: rgba(242, 242, 242, .2);
+	color: rgba(242, 242, 242, 0.2);
 }
 
 .player-register form input:is(:active, :hover, :focus) {
@@ -308,68 +318,70 @@ body {
 }
 
 .player-register form button {
-    margin: 0 auto;
-    padding: .8rem 1.3rem;
-    font-size: 1.3rem;
-    text-transform: capitalize;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    color: var(--light);
-    background: var(--terciary);
-    transition: all .35s ease-in-out;
+	margin: 0 auto;
+	padding: 0.8rem 1.3rem;
+	font-size: 1.3rem;
+	text-transform: capitalize;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	color: var(--light);
+	background: var(--terciary);
+	transition: all 0.35s ease-in-out;
 }
 
 .player-register form button:is(:active, :hover, :focus) {
-    color: var(--terciary);
-    background: var(--light);
+	color: var(--terciary);
+	background: var(--light);
 }
 
 /* Leaderboard Styles */
+.leaderboard {
+    display: none;
+}
 
-.leaderboard .modal-wrapper{
-    padding: 2rem;
-    width: 55%;
+.leaderboard .modal-wrapper {
+	padding: 2rem;
+	width: 45%;
 }
 
 .leaderboard h2 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
+	font-size: 2rem;
+	margin-bottom: 2rem;
 }
 
 .leaderboard table {
-    width: 100%;
-    border-collapse: collapse;
+	width: 100%;
+	border-collapse: collapse;
 }
 
 .leaderboard table tr {
-    border-bottom: 2px solid rgba(242, 242, 242, .2);
+	border-bottom: 2px solid rgba(242, 242, 242, 0.2);
 }
 
 .leaderboard th {
-    font-size: 1.7rem;
-    font-weight: 400;
-    text-transform: capitalize;
-    padding-bottom: .5rem;
+	font-size: 1.7rem;
+	font-weight: 400;
+	text-transform: capitalize;
+	padding-bottom: 0.5rem;
 }
 
 .leaderboard td {
-    font-size: 1.2rem;
-    padding: .5rem 0 .5rem;
+	font-size: 1.2rem;
+	padding: 0.5rem 0 0.5rem;
 }
 
 .leaderboard th:first-child {
-    text-align: left;
+	text-align: left;
 }
 
 .leaderboard th:last-child,
 .leaderboard td:last-child {
-    text-align: right;
+	text-align: right;
 }
 
 .leaderboard nav button {
-    padding: .5rem 1.5rem;
-    background: var(--terciary);
-     color: var(--light);
+	padding: 0.5rem 1.5rem;
+	background: var(--terciary);
+	color: var(--light);
 }
-

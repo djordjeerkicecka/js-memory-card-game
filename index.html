@@ -20,14 +20,14 @@
 				<button id="hard">Hard</button>
 			</nav>
 
-			<h3>View the leaderboard <a href="#" id="leaderboard">here</a></h3>
+			<h3>View the leaderboard <a href="#" id="btn-leaderboard">here</a></h3>
 		</section>
 
 		<!-- Game View -->
 		<section class="view game-view" id="game">
 			<header>
 				<h2>Find all matching card pairs!</h2>
-				<h3>Time elapsed: <span id="game-timer">0</span> seconds</h3>
+				<h3>Time elapsed: <span id="game-clock">0</span> seconds</h3>
 			</header>
 
 			<section class="game-grid">
@@ -64,8 +64,8 @@
 			<section class="modal-wrapper">
 				<h2>Game over!</h2>
 				<h3>
-					You matched <span id="matches">X</span> tiles in
-					<span id="time">Y</span> seconds
+					You matched <span id="game-matches">X</span> tiles in
+					<span id="game-time">Y</span> seconds
 				</h3>
 
 				<nav>
@@ -81,79 +81,78 @@
 			<section class="modal-wrapper">
 				<h2>Please enter a name to save your score</h2>
 
-				<form>
+				<form id="input-form">
 					<input
 						type="text"
 						placeholder="Write your name here"
 						pattern="[A-Za-z]{3,16}"
-                        maxlength="16"/>
+						maxlength="16" />
 					<button type="submit">Save my score</button>
 				</form>
 			</section>
 		</section>
 
 		<!-- Rankings Modal -->
-        <section class="modal leaderboard" id="leaderboard">
-            <section class="modal-wrapper">
-                <h2>Leaderboard</h2>
+		<section class="modal leaderboard" id="leaderboard">
+			<section class="modal-wrapper">
+				<h2>Leaderboard</h2>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>player</th>
-                            <th>score</th>    
-                        </tr>
-                    </thead>
+				<table>
+					<thead>
+						<tr>
+							<th>player</th>
+							<th>score</th>
+						</tr>
+					</thead>
 
-                    <tbody>
-                        <tr>
-                            <td>placeholder</td>
-                            <td>0000</td>
-                        </tr>
-                        <tr>
-                            <td>placeholder</td>
-                            <td>0000</td>
-                        </tr>
-                        <tr>
-                            <td>placeholder</td>
-                            <td>0000</td>
-                        </tr>
-                        <tr>
-                            <td>placeholder</td>
-                            <td>0000</td>
-                        </tr>
-                        <tr>
-                            <td>placeholder</td>
-                            <td>0000</td>
-                        </tr>
-                        <tr>
-                            <td>placeholder</td>
-                            <td>0000</td>
-                        </tr>
-                        <tr>
-                            <td>placeholder</td>
-                            <td>0000</td>
-                        </tr>
-                        <tr>
-                            <td>placeholder</td>
-                            <td>0000</td>
-                        </tr>
-                        <tr>
-                            <td>placeholder</td>
-                            <td>0000</td>
-                        </tr>
-                        <tr>
-                            <td>placeholder</td>
-                            <td>0000</td>
-                        </tr>
-                    </tbody>
-                </table>
+					<tbody id="table-target">
+						<tr>
+							<td>placeholder</td>
+							<td>0000</td>
+						</tr>
+						<tr>
+							<td>placeholder</td>
+							<td>0000</td>
+						</tr>
+						<tr>
+							<td>placeholder</td>
+							<td>0000</td>
+						</tr>
+						<tr>
+							<td>placeholder</td>
+							<td>0000</td>
+						</tr>
+						<tr>
+							<td>placeholder</td>
+							<td>0000</td>
+						</tr>
+						<tr>
+							<td>placeholder</td>
+							<td>0000</td>
+						</tr>
+						<tr>
+							<td>placeholder</td>
+							<td>0000</td>
+						</tr>
+						<tr>
+							<td>placeholder</td>
+							<td>0000</td>
+						</tr>
+						<tr>
+							<td>placeholder</td>
+							<td>0000</td>
+						</tr>
+						<tr>
+							<td>placeholder</td>
+							<td>0000</td>
+						</tr>
+					</tbody>
+				</table>
 
-                <nav>
-                    <button>Play Again</button>
-                </nav>
-            </section>
-        </section>
-
+				<nav>
+					<button>Play Again</button>
+				</nav>
+			</section>
+		</section>
 	</body>
 </html>
