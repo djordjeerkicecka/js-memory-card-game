@@ -7,10 +7,12 @@
 		<title>Memory Game</title>
 
         <link rel="stylesheet" href="assets/styles/style.css">
+
+        <script src="assets/scripts/main.js" defer></script>
 	</head>
 	<body>
         <!-- Welcome View -->
-		<section class="view visible welcome-view" id="welcome">
+		<section class="view welcome-view" id="welcome">
 			<h1>Please select a difficulty</h1>
 			<nav>
                 <button id="easy">Easy</button>
@@ -22,13 +24,22 @@
 		</section>
 
         <!-- Game View -->
-        <section class="view game-view" id="game">
+        <section class="view  game-view" id="game">
             <header>
                 <h2>Find all matching card pairs!</h2>
-                <h3>Time elapsed: <span class="timer">0</span> seconds</h3>
+                <h3>Time elapsed: <span id="game-timer">0</span> seconds</h3>
             </header>
 
             <section class="game-grid">
+                <div class="card"></div>
+                <div class="card"></div>
+                <div class="card"></div>
+                <div class="card"></div>
+                <div class="card"></div>
+                <div class="card"></div>
+                <div class="card"></div>
+                <div class="card"></div>
+                <div class="card"></div>
                 <div class="card"></div>
                 <div class="card"></div>
                 <div class="card"></div>
@@ -49,6 +60,15 @@
         </section>
 
         <!-- Game Over Modal -->
+        <section class="modal game-over" id="game-over">
+            <h2>Game over! You Matched <span id="matches">X</span> tiles in <span id="time">Y</span> seconds</h2>
+       
+            <form>
+                <h2>To save your score, enter your name</h2>
+                <input id="input-field" type="text">
+                <button>Save my score</button>
+            </form>
+        </section>
 
         <!-- Rankings Modal -->
 	</body>
