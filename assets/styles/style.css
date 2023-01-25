@@ -79,20 +79,20 @@ body {
 
 /* View - Welcome */
 
-#welcome {
+.welcome-view {
 	padding-top: 17rem;
 }
 
-#welcome h1 {
+.welcome-view h1 {
 	font-size: 3rem;
 	font-weight: 300;
 }
 
-#welcome nav {
+.welcome-view nav {
 	margin: 2rem 0;
 }
 
-#welcome nav button {
+.welcome-view nav button {
 	font-size: 1.7rem;
 	padding: 1rem 2rem;
 	margin-inline-end: 2rem;
@@ -103,26 +103,26 @@ body {
 	transition: background 0.35s ease-in-out;
 }
 
-#welcome nav button:is(:active, :hover, :focus) {
+.welcome-view nav button:is(:active, :hover, :focus) {
 	background: var(--terciary);
 }
 
-#welcome h3 {
+.welcome-view h3 {
 	font-weight: 300;
 	font-size: 2rem;
 }
 
-#welcome h3 #leaderboard {
+.welcome-view h3 #leaderboard {
 	text-decoration: none;
 	color: var(--terciary);
 	position: relative;
 }
 
-#welcome h3 #leaderboard:is(:active, :hover, :focus)::after {
+.welcome-view h3 #leaderboard:is(:active, :hover, :focus)::after {
 	width: 100%;
 }
 
-#welcome h3 #leaderboard::after {
+.welcome-view h3 #leaderboard::after {
 	content: '';
 	display: block;
 	height: 2px;
@@ -136,30 +136,30 @@ body {
 
 /* View - Game*/
 
-#game {
+.game-view{
 	left: 100%;
 	justify-content: space-around;
 }
 
-#game header {
+.game-viewheader {
 	width: 70%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
 
-#game header h2 {
+.game-viewheader h2 {
 	font-size: 2rem;
 	font-weight: 300;
 }
 
-#game header h3 {
+.game-viewheader h3 {
 	font-weight: 300;
 	font-size: 1.5rem;
 	align-self: flex-end;
 }
 
-#game .game-grid {
+.game-view.game-grid {
 	border: 1rem solid var(--terciary);
 	border-radius: 2rem;
 	height: 90%;
@@ -171,7 +171,7 @@ body {
 	padding: 1rem;
 }
 
-#game .game-grid .card {
+.game-view.game-grid .card {
 	background: #fff;
 	border-radius: 1rem;
 }
@@ -267,3 +267,109 @@ body {
 	background: var(--light);
 	transition: width 0.35s ease-in-out;
 }
+
+/* Player Register Modal */
+
+.player-register .modal-wrapper {
+	width: 55%;
+	padding: 2rem 1rem;
+}
+
+.player-register .modal-wrapper h2 {
+	text-align: center;
+	text-transform: initial;
+	margin-bottom: 2rem;
+    font-size: 1.8rem;
+    padding-inline: 1.5rem;
+}
+
+.player-register .modal-wrapper form {
+	display: flex;
+	flex-direction: column;
+	width: 70%;
+}
+
+.player-register form input {
+	border: none;
+	border-radius: 1rem;
+	margin-bottom: 1.5rem;
+	font-size: 1.2rem;
+	font-weight: 200;
+	background: var(--terciary);
+	padding: 0.7rem 1rem 0.5rem;
+	color: var(--light);
+}
+.player-register form input::placeholder {
+    color: rgba(242, 242, 242, .2);
+}
+
+.player-register form input:is(:active, :hover, :focus) {
+	outline: none;
+}
+
+.player-register form button {
+    margin: 0 auto;
+    padding: .8rem 1.3rem;
+    font-size: 1.3rem;
+    text-transform: capitalize;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: var(--light);
+    background: var(--terciary);
+    transition: all .35s ease-in-out;
+}
+
+.player-register form button:is(:active, :hover, :focus) {
+    color: var(--terciary);
+    background: var(--light);
+}
+
+/* Leaderboard Styles */
+
+.leaderboard .modal-wrapper{
+    padding: 2rem;
+    width: 55%;
+}
+
+.leaderboard h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.leaderboard table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.leaderboard table tr {
+    border-bottom: 2px solid rgba(242, 242, 242, .2);
+}
+
+.leaderboard th {
+    font-size: 1.7rem;
+    font-weight: 400;
+    text-transform: capitalize;
+    padding-bottom: .5rem;
+}
+
+.leaderboard td {
+    font-size: 1.2rem;
+    padding: .5rem 0 .5rem;
+}
+
+.leaderboard th:first-child {
+    text-align: left;
+}
+
+.leaderboard th:last-child,
+.leaderboard td:last-child {
+    text-align: right;
+}
+
+.leaderboard nav button {
+    padding: .5rem 1.5rem;
+    background: var(--terciary);
+     color: var(--light);
+}
+
