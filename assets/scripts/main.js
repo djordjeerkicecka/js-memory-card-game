@@ -53,23 +53,76 @@ const btnPlayAgain = document.getElementById('play-again');
 
 // Game State Class
 class GameState {
-	#dataSource;
-	#elementNumber;
-    #arrayOfSource;
+	#sourceData;
+	#uniqueElementCount;
+    #arrayedData;
+    #markupData;
 
-	constructor(dataSource, elementNumber) {
-		this.#dataSource = dataSource;
-		this.#elementNumber = elementNumber;
-        this.#arrayOfSource = this.SourceToArray();
-	}
+	constructor(sourceData, uniqueElementCount) {
+		this.#sourceData = sourceData;
+		this.#uniqueElementCount = uniqueElementCount;
+        this.#arrayedData = this.MakeDataArrayFromSource();
+        this.#markupData = this.GenerateMarkup();
+
+        this.RenderMarkup();
+    }
 
     // Map source data to an array
-    SourceToArray() {
-        const valuesArray = [];
-        
-        Object.values(this.#dataSource).forEach(value => valuesArray.push(value));
+    MakeDataArrayFromSource() {
+        let items = [];
 
-        return valuesArray;
+        Object.values(this.#sourceData).forEach(value => items.push(value)); // Map object values to array
+        
+        let selection = [];
+
+        // Select random items from array
+        while(selection.length < this.#uniqueElementCount) {
+            let index = this.GetNumber(items.length);
+
+            selection.push(...items.splice(index, 1));
+        }
+
+        selection = [...selection, ...selection]; // Duplicate selected array
+
+        let randomised = [];
+
+        // Randomise selected array 
+        while(randomised.length <this.#uniqueElementCount * 2) {
+            let index = this.GetNumber(selection.length);
+
+            randomised.push(...selection.splice(index, 1))
+        }
+
+        return randomised;
+    }
+
+    // Generate elements
+    GenerateMarkup() {
+        let nodes = [];
+
+        this.#arrayedData.forEach(item => nodes.push(this.GenerateElement(item.id, item.src)));
+
+        return nodes;
+    }
+
+    // Generate single element
+    GenerateElement(id, src) {
+        let node = document.createElement('div');
+        node.classList.add('card');
+        node.setAttribute('data-id', id)
+        
+        let childNode = document.createElement('img');
+        childNode.classList.add('card-img');
+        childNode.setAttribute('src', src);
+        childNode.setAttribute('alt', `cardImgID${id}`);
+
+        node.appendChild(childNode);
+        return node;
+    }
+
+    // Render markup data on screen
+    RenderMarkup() {
+        this.#markupData.forEach(item => gameGrid.appendChild(item));
     }
 
     // Generate a random number in a range from [0, multiplier)
@@ -77,9 +130,13 @@ class GameState {
         return Math.floor(Math.random() * multiplier);
     }
 
-    // TEST FUNCTIONS 
-    _getSrcArray() {
-        return this.#arrayOfSource;
+    // TEST FUNCTIONS PREFIXED WITH _
+    _getDataArray() {
+        return this.#arrayedData;
+    }
+
+    _getMarkup() {
+        return this.#markupData;
     }
 }
 
@@ -103,10 +160,16 @@ function slideViewLTR() {
 
 btnEasy.addEventListener('click', function () {
 	gameState = new GameState(GAME_DATA, 6);
+    console.log(gameState._getMarkup)
+    slideViewRTL();
 });
 btnMedium.addEventListener('click', function () {
-	gameState = new GameState(GAME_DATA, 6);
+	gameState = new GameState(GAME_DATA, 8);
+    console.log(gameState._getMarkup)
+    slideViewRTL();
 });
 btnHard.addEventListener('click', function () {
-	gameState = new GameState(GAME_DATA, 6);
+	gameState = new GameState(GAME_DATA, 10);
+    console.log(gameState._getMarkup)
+    slideViewRTL();
 });
