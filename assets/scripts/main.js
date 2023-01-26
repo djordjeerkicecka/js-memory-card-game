@@ -54,10 +54,16 @@ const btnPlayAgain = document.getElementById('play-again');
 class GameState {
 	#sourceData;
 	#uniqueElementCount;
+	#selected;
+	#score;
+	#pairsToMatch;
 
 	constructor(sourceData, uniqueElementCount) {
 		this.#sourceData = sourceData;
 		this.#uniqueElementCount = uniqueElementCount;
+		this.#score = 0;
+		this.#selected = [];
+		this.#pairsToMatch = uniqueElementCount;
 
 		this.Render();
 	}
@@ -68,8 +74,6 @@ class GameState {
 		let nodes = this.GenerateMarkupFromArray(source);
 
 		nodes.forEach(node => gameGrid.appendChild(node));
-
-		console.log(nodes);
 	}
 
 	// Map source data to an array
@@ -82,7 +86,7 @@ class GameState {
 
 		// Select random items from array
 		while (selection.length < this.#uniqueElementCount) {
-			let index = this.GetNumber(items.length);
+			let index = this.#GetNumber(items.length);
 
 			selection.push(...items.splice(index, 1));
 		}
@@ -93,7 +97,7 @@ class GameState {
 
 		// Randomise selected array
 		while (randomised.length < this.#uniqueElementCount * 2) {
-			let index = this.GetNumber(selection.length);
+			let index = this.#GetNumber(selection.length);
 
 			randomised.push(...selection.splice(index, 1));
 		}
@@ -117,6 +121,9 @@ class GameState {
 		let node = document.createElement('div');
 		node.classList.add('card');
 		node.setAttribute('data-id', id);
+		node.addEventListener('click', function () {
+			gameState.RegisterClick(this);
+		});
 
 		let childNode = document.createElement('img');
 		childNode.classList.add('card-img');
@@ -127,40 +134,78 @@ class GameState {
 		return node;
 	}
 
+	// Register click on game grid
+	RegisterClick(element) {
+		if (element.classList.contains('clicked')) return; // Ignore multiple clicks on open card
+
+		element.classList.add('clicked');
+		this.#selected.push(element);
+
+		if (this.#selected.length == 2) {
+			if (this.#GetId(this.#selected[0]) !== this.#GetId(this.#selected[1])) {
+				setTimeout(() => {
+					this.#selected.forEach(item => item.classList.remove('clicked'));
+					this.#selected = [];
+				}, 500 );
+			} else {
+				this.#score++;
+				this.#pairsToMatch--;
+				this.#selected = [];
+
+				if (this.#pairsToMatch == 0) {
+					setTimeout(() => {
+						alert('You Win!');
+					}, 500);
+				}
+			}
+		}
+
+		//console.log(this.#GetId(element));
+	}
+
+	// Get id from element
+	#GetId(element) {
+		return element.dataset.id;
+	}
+
 	// Generate a random number in a range from [0, multiplier)
-	GetNumber(multiplier) {
+	#GetNumber(multiplier) {
 		return Math.floor(Math.random() * multiplier);
+	}
+
+	GetScore() {
+		return this.#score;
 	}
 }
 
 class GameClock {
-    #time;
-    #clockRef;
+	#time;
+	#clockRef;
 
-    constructor() {
-        this.#time = -1; // OFFSET TO COMPENSATE ANIMATION
-        this.#clockRef = this.#StartTime();
-    }
+	constructor() {
+		this.#time = -1; // OFFSET TO COMPENSATE ANIMATION
+		this.#clockRef = this.#StartTime();
+	}
 
-    #StartTime() {
-        return setInterval(() => {
-           this.#time++;
-           this.#UpdateTime(this.#time); 
-            console.log(this.#time);
-        }, 1000);
-    }
+	#StartTime() {
+		return setInterval(() => {
+			this.#time++;
+			this.#UpdateTime(this.#time);
+			console.log(this.#time);
+		}, 1000);
+	}
 
-    StopTime() {
-        clearInterval(this.#clockRef);
-    }
+	StopTime() {
+		clearInterval(this.#clockRef);
+	}
 
-    #UpdateTime(newTime) {
-        gameTimeDisplay.innerHTML = newTime;
-    }
+	#UpdateTime(newTime) {
+		gameTimeDisplay.innerHTML = newTime;
+	}
 
-    GetTime() {
-        return this.#time;
-    }
+	GetTime() {
+		return this.#time;
+	}
 }
 
 // Slide view from right to left
@@ -183,16 +228,16 @@ let gameClock;
 
 btnEasy.addEventListener('click', function () {
 	gameState = new GameState(GAME_DATA, 6);
-    gameClock = new GameClock();
+	//gameClock = new GameClock();
 	slideViewRTL();
 });
 btnMedium.addEventListener('click', function () {
 	gameState = new GameState(GAME_DATA, 8);
-    gameClock = new GameClock();
+	//gameClock = new GameClock();
 	slideViewRTL();
 });
 btnHard.addEventListener('click', function () {
 	gameState = new GameState(GAME_DATA, 10);
-    gameClock = new GameClock();
+	//gameClock = new GameClock();
 	slideViewRTL();
 });
