@@ -1,5 +1,5 @@
 // Tiles Source Object
-const TILES_SOURCE = {
+const GAME_DATA = {
 	tile1: { id: 1, src: './assets/img/1.png' },
 	tile2: { id: 2, src: './assets/img/2.png' },
 	tile3: { id: 3, src: './assets/img/3.png' },
@@ -51,8 +51,94 @@ const formElement = document.getElementById('input-form');
 const tableBody = document.getElementById('table-body');
 const btnPlayAgain = document.getElementById('play-again');
 
+// Game State Class
+class GameState {
+	#sourceData;
+	#uniqueElementCount;
+
+	constructor(sourceData, uniqueElementCount) {
+		this.#sourceData = sourceData;
+		this.#uniqueElementCount = uniqueElementCount;
+
+        this.Render();
+    }
+
+    // Render elements on screen
+    Render() {
+        let source = this.GenerateArrayFromSource();
+        let nodes = this.GenerateMarkupFromArray(source);
+
+        nodes.forEach(node => gameGrid.appendChild(node));
+
+        console.log(nodes);
+    }
+
+    // Map source data to an array
+    GenerateArrayFromSource() {
+        let items = [];
+
+        Object.values(this.#sourceData).forEach(value => items.push(value)); // Map object values to array
+        
+        let selection = [];
+
+        // Select random items from array
+        while(selection.length < this.#uniqueElementCount) {
+            let index = this.GetNumber(items.length);
+
+            selection.push(...items.splice(index, 1));
+        }
+
+        selection = [...selection, ...selection]; // Duplicate selected array
+
+        let randomised = [];
+
+        // Randomise selected array 
+        while(randomised.length <this.#uniqueElementCount * 2) {
+            let index = this.GetNumber(selection.length);
+
+            randomised.push(...selection.splice(index, 1))
+        }
+
+        return randomised;
+    }
+
+    // Generate elements
+    GenerateMarkupFromArray(data) {
+        let nodes = [];
+
+        data.forEach(item => nodes.push(this.GenerateNodeFromData(item.id, item.src)));
+
+        return nodes;
+    }
+
+    // Generate single element
+    GenerateNodeFromData(id, src) {
+        let node = document.createElement('div');
+        node.classList.add('card');
+        node.setAttribute('data-id', id)
+        
+        let childNode = document.createElement('img');
+        childNode.classList.add('card-img');
+        childNode.setAttribute('src', src);
+        childNode.setAttribute('alt', `cardImgID${id}`);
+
+        node.appendChild(childNode);
+        return node;
+    }
+
+    // Generate a random number in a range from [0, multiplier)
+    GetNumber(multiplier) {
+        return Math.floor(Math.random() * multiplier);
+    }
+
+    // TEST FUNCTIONS PREFIXED WITH _
+}
+
+// Game state var to hold class instance
+let gameState;
+
 // Slide view from right to left
-function slideViewFromRightToLeft() {
+function slideViewRTL() {
 	const ATTRIBUTE_VALUE = '2s ease-in-out forwards';
 
 	viewWelcome.style.animation = `SlideOutToLeft ${ATTRIBUTE_VALUE}`;
@@ -60,18 +146,21 @@ function slideViewFromRightToLeft() {
 }
 
 // Slide view from left to right
-function slideViewFromLeftToRight() {
+function slideViewLTR() {
 	const ATTRIBUTE_VALUE = '2s ease-in-out forwards';
 	viewWelcome.style.animation = `SlideInFromLeft ${ATTRIBUTE_VALUE}`;
 	viewGame.style.animation = `SlideOutToRight ${ATTRIBUTE_VALUE}`;
 }
 
-btnEasy.addEventListener('click', function() {
-    console.log(this);
+btnEasy.addEventListener('click', function () {
+	gameState = new GameState(GAME_DATA, 6);
+    slideViewRTL();
 });
-btnMedium.addEventListener('click', function() {
-    console.log(this);
+btnMedium.addEventListener('click', function () {
+	gameState = new GameState(GAME_DATA, 8);
+    slideViewRTL();
 });
-btnHard.addEventListener('click', function() {
-    console.log(this);
+btnHard.addEventListener('click', function () {
+	gameState = new GameState(GAME_DATA, 10);
+    slideViewRTL();
 });
