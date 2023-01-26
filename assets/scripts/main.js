@@ -138,7 +138,7 @@ class GameClock {
     #clockRef;
 
     constructor() {
-        this.#time = -2; // OFFSET TO COMPENSATE ANIMATION DURATION
+        this.#time = -1; // OFFSET TO COMPENSATE ANIMATION
         this.#clockRef = this.#StartTime();
     }
 
