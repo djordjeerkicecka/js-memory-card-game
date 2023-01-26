@@ -35,7 +35,7 @@ const btnHard = document.getElementById('hard');
 const btnShowLeaderboard = document.getElementById('btn-leaderboard');
 
 // Dynamic Game Elements
-const gameClock = document.getElementById('game-clock');
+const gameTimeDisplay = document.getElementById('game-clock');
 const gameGrid = document.getElementById('game-grid');
 const gameMatches = document.getElementById('game-matches');
 const gameTime = document.getElementById('game-time');
@@ -51,7 +51,6 @@ const formElement = document.getElementById('input-form');
 const tableBody = document.getElementById('table-body');
 const btnPlayAgain = document.getElementById('play-again');
 
-// Game State Class
 class GameState {
 	#sourceData;
 	#uniqueElementCount;
@@ -60,82 +59,109 @@ class GameState {
 		this.#sourceData = sourceData;
 		this.#uniqueElementCount = uniqueElementCount;
 
-        this.Render();
-    }
+		this.Render();
+	}
 
-    // Render elements on screen
-    Render() {
-        let source = this.GenerateArrayFromSource();
-        let nodes = this.GenerateMarkupFromArray(source);
+	// Render elements on screen
+	Render() {
+		let source = this.GenerateArrayFromSource();
+		let nodes = this.GenerateMarkupFromArray(source);
 
-        nodes.forEach(node => gameGrid.appendChild(node));
+		nodes.forEach(node => gameGrid.appendChild(node));
 
-        console.log(nodes);
-    }
+		console.log(nodes);
+	}
 
-    // Map source data to an array
-    GenerateArrayFromSource() {
-        let items = [];
+	// Map source data to an array
+	GenerateArrayFromSource() {
+		let items = [];
 
-        Object.values(this.#sourceData).forEach(value => items.push(value)); // Map object values to array
-        
-        let selection = [];
+		Object.values(this.#sourceData).forEach(value => items.push(value)); // Map object values to array
 
-        // Select random items from array
-        while(selection.length < this.#uniqueElementCount) {
-            let index = this.GetNumber(items.length);
+		let selection = [];
 
-            selection.push(...items.splice(index, 1));
-        }
+		// Select random items from array
+		while (selection.length < this.#uniqueElementCount) {
+			let index = this.GetNumber(items.length);
 
-        selection = [...selection, ...selection]; // Duplicate selected array
+			selection.push(...items.splice(index, 1));
+		}
 
-        let randomised = [];
+		selection = [...selection, ...selection]; // Duplicate selected array
 
-        // Randomise selected array 
-        while(randomised.length <this.#uniqueElementCount * 2) {
-            let index = this.GetNumber(selection.length);
+		let randomised = [];
 
-            randomised.push(...selection.splice(index, 1))
-        }
+		// Randomise selected array
+		while (randomised.length < this.#uniqueElementCount * 2) {
+			let index = this.GetNumber(selection.length);
 
-        return randomised;
-    }
+			randomised.push(...selection.splice(index, 1));
+		}
 
-    // Generate elements
-    GenerateMarkupFromArray(data) {
-        let nodes = [];
+		return randomised;
+	}
 
-        data.forEach(item => nodes.push(this.GenerateNodeFromData(item.id, item.src)));
+	// Generate elements
+	GenerateMarkupFromArray(data) {
+		let nodes = [];
 
-        return nodes;
-    }
+		data.forEach(item =>
+			nodes.push(this.GenerateNodeFromData(item.id, item.src))
+		);
 
-    // Generate single element
-    GenerateNodeFromData(id, src) {
-        let node = document.createElement('div');
-        node.classList.add('card');
-        node.setAttribute('data-id', id)
-        
-        let childNode = document.createElement('img');
-        childNode.classList.add('card-img');
-        childNode.setAttribute('src', src);
-        childNode.setAttribute('alt', `cardImgID${id}`);
+		return nodes;
+	}
 
-        node.appendChild(childNode);
-        return node;
-    }
+	// Generate single element
+	GenerateNodeFromData(id, src) {
+		let node = document.createElement('div');
+		node.classList.add('card');
+		node.setAttribute('data-id', id);
 
-    // Generate a random number in a range from [0, multiplier)
-    GetNumber(multiplier) {
-        return Math.floor(Math.random() * multiplier);
-    }
+		let childNode = document.createElement('img');
+		childNode.classList.add('card-img');
+		childNode.setAttribute('src', src);
+		childNode.setAttribute('alt', `cardImgID${id}`);
 
-    // TEST FUNCTIONS PREFIXED WITH _
+		node.appendChild(childNode);
+		return node;
+	}
+
+	// Generate a random number in a range from [0, multiplier)
+	GetNumber(multiplier) {
+		return Math.floor(Math.random() * multiplier);
+	}
 }
 
-// Game state var to hold class instance
-let gameState;
+class GameClock {
+    #time;
+    #clockRef;
+
+    constructor() {
+        this.#time = -2; // OFFSET TO COMPENSATE ANIMATION DURATION
+        this.#clockRef = this.#StartTime();
+    }
+
+    #StartTime() {
+        return setInterval(() => {
+           this.#time++;
+           this.#UpdateTime(this.#time); 
+            console.log(this.#time);
+        }, 1000);
+    }
+
+    StopTime() {
+        clearInterval(this.#clockRef);
+    }
+
+    #UpdateTime(newTime) {
+        gameTimeDisplay.innerHTML = newTime;
+    }
+
+    GetTime() {
+        return this.#time;
+    }
+}
 
 // Slide view from right to left
 function slideViewRTL() {
@@ -152,15 +178,21 @@ function slideViewLTR() {
 	viewGame.style.animation = `SlideOutToRight ${ATTRIBUTE_VALUE}`;
 }
 
+let gameState;
+let gameClock;
+
 btnEasy.addEventListener('click', function () {
 	gameState = new GameState(GAME_DATA, 6);
-    slideViewRTL();
+    gameClock = new GameClock();
+	slideViewRTL();
 });
 btnMedium.addEventListener('click', function () {
 	gameState = new GameState(GAME_DATA, 8);
-    slideViewRTL();
+    gameClock = new GameClock();
+	slideViewRTL();
 });
 btnHard.addEventListener('click', function () {
 	gameState = new GameState(GAME_DATA, 10);
-    slideViewRTL();
+    gameClock = new GameClock();
+	slideViewRTL();
 });
