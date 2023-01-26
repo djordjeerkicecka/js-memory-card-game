@@ -55,20 +55,26 @@ const btnPlayAgain = document.getElementById('play-again');
 class GameState {
 	#sourceData;
 	#uniqueElementCount;
-    #arrayedData;
-    #markupData;
 
 	constructor(sourceData, uniqueElementCount) {
 		this.#sourceData = sourceData;
 		this.#uniqueElementCount = uniqueElementCount;
-        this.#arrayedData = this.MakeDataArrayFromSource();
-        this.#markupData = this.GenerateMarkup();
 
-        this.RenderMarkup();
+        this.Render();
+    }
+
+    // Render elements on screen
+    Render() {
+        let source = this.GenerateArrayFromSource();
+        let nodes = this.GenerateMarkupFromArray(source);
+
+        nodes.forEach(node => gameGrid.appendChild(node));
+
+        console.log(nodes);
     }
 
     // Map source data to an array
-    MakeDataArrayFromSource() {
+    GenerateArrayFromSource() {
         let items = [];
 
         Object.values(this.#sourceData).forEach(value => items.push(value)); // Map object values to array
@@ -97,16 +103,16 @@ class GameState {
     }
 
     // Generate elements
-    GenerateMarkup() {
+    GenerateMarkupFromArray(data) {
         let nodes = [];
 
-        this.#arrayedData.forEach(item => nodes.push(this.GenerateElement(item.id, item.src)));
+        data.forEach(item => nodes.push(this.GenerateNodeFromData(item.id, item.src)));
 
         return nodes;
     }
 
     // Generate single element
-    GenerateElement(id, src) {
+    GenerateNodeFromData(id, src) {
         let node = document.createElement('div');
         node.classList.add('card');
         node.setAttribute('data-id', id)
@@ -120,24 +126,12 @@ class GameState {
         return node;
     }
 
-    // Render markup data on screen
-    RenderMarkup() {
-        this.#markupData.forEach(item => gameGrid.appendChild(item));
-    }
-
     // Generate a random number in a range from [0, multiplier)
     GetNumber(multiplier) {
         return Math.floor(Math.random() * multiplier);
     }
 
     // TEST FUNCTIONS PREFIXED WITH _
-    _getDataArray() {
-        return this.#arrayedData;
-    }
-
-    _getMarkup() {
-        return this.#markupData;
-    }
 }
 
 // Game state var to hold class instance
@@ -160,16 +154,13 @@ function slideViewLTR() {
 
 btnEasy.addEventListener('click', function () {
 	gameState = new GameState(GAME_DATA, 6);
-    console.log(gameState._getMarkup)
     slideViewRTL();
 });
 btnMedium.addEventListener('click', function () {
 	gameState = new GameState(GAME_DATA, 8);
-    console.log(gameState._getMarkup)
     slideViewRTL();
 });
 btnHard.addEventListener('click', function () {
 	gameState = new GameState(GAME_DATA, 10);
-    console.log(gameState._getMarkup)
     slideViewRTL();
 });
