@@ -1,5 +1,5 @@
 // Tiles Source Object
-const TILES_SOURCE = {
+const GAME_DATA = {
 	tile1: { id: 1, src: './assets/img/1.png' },
 	tile2: { id: 2, src: './assets/img/2.png' },
 	tile3: { id: 3, src: './assets/img/3.png' },
@@ -51,8 +51,43 @@ const formElement = document.getElementById('input-form');
 const tableBody = document.getElementById('table-body');
 const btnPlayAgain = document.getElementById('play-again');
 
+// Game State Class
+class GameState {
+	#dataSource;
+	#elementNumber;
+    #arrayOfSource;
+
+	constructor(dataSource, elementNumber) {
+		this.#dataSource = dataSource;
+		this.#elementNumber = elementNumber;
+        this.#arrayOfSource = this.SourceToArray();
+	}
+
+    // Map source data to an array
+    SourceToArray() {
+        const valuesArray = [];
+        
+        Object.values(this.#dataSource).forEach(value => valuesArray.push(value));
+
+        return valuesArray;
+    }
+
+    // Generate a random number in a range from [0, multiplier)
+    GetNumber(multiplier) {
+        return Math.floor(Math.random() * multiplier);
+    }
+
+    // TEST FUNCTIONS 
+    _getSrcArray() {
+        return this.#arrayOfSource;
+    }
+}
+
+// Game state var to hold class instance
+let gameState;
+
 // Slide view from right to left
-function slideViewFromRightToLeft() {
+function slideViewRTL() {
 	const ATTRIBUTE_VALUE = '2s ease-in-out forwards';
 
 	viewWelcome.style.animation = `SlideOutToLeft ${ATTRIBUTE_VALUE}`;
@@ -60,18 +95,18 @@ function slideViewFromRightToLeft() {
 }
 
 // Slide view from left to right
-function slideViewFromLeftToRight() {
+function slideViewLTR() {
 	const ATTRIBUTE_VALUE = '2s ease-in-out forwards';
 	viewWelcome.style.animation = `SlideInFromLeft ${ATTRIBUTE_VALUE}`;
 	viewGame.style.animation = `SlideOutToRight ${ATTRIBUTE_VALUE}`;
 }
 
-btnEasy.addEventListener('click', function() {
-    console.log(this);
+btnEasy.addEventListener('click', function () {
+	gameState = new GameState(GAME_DATA, 6);
 });
-btnMedium.addEventListener('click', function() {
-    console.log(this);
+btnMedium.addEventListener('click', function () {
+	gameState = new GameState(GAME_DATA, 6);
 });
-btnHard.addEventListener('click', function() {
-    console.log(this);
+btnHard.addEventListener('click', function () {
+	gameState = new GameState(GAME_DATA, 6);
 });
