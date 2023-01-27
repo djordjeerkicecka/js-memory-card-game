@@ -136,31 +136,30 @@ class GameState {
 
 	// Register click on game grid
 	RegisterClick(element) {
-		if (element.classList.contains('clicked')) return; // Ignore multiple clicks on open card
+		if (element.classList.contains('clicked')) return; // Ignore repeated clicks on opened tile
+		if (this.#selected.length === 2) return; // Ignore clicks if two cards are open
 
 		element.classList.add('clicked');
 		this.#selected.push(element);
 
-		if (this.#selected.length == 2) {
-			if (this.#GetId(this.#selected[0]) !== this.#GetId(this.#selected[1])) {
-				setTimeout(() => {
-					this.#selected.forEach(item => item.classList.remove('clicked'));
-					this.#selected = [];
-				}, 500 );
-			} else {
+		if (this.#selected.length === 2) {
+			if (this.#GetId(this.#selected[0]) === this.#GetId(this.#selected[1])) {
 				this.#score++;
 				this.#pairsToMatch--;
 				this.#selected = [];
 
-				if (this.#pairsToMatch == 0) {
+				if (this.#pairsToMatch === 0) {
 					setTimeout(() => {
-						alert('You Win!');
-					}, 500);
+						alert('You Won!');
+					}, 400);
 				}
+			} else {
+				setTimeout(() => {
+					this.#selected.forEach(item => item.classList.remove('clicked'));
+					this.#selected = [];
+				}, 400);
 			}
 		}
-
-		//console.log(this.#GetId(element));
 	}
 
 	// Get id from element
@@ -210,7 +209,7 @@ class GameClock {
 
 // Slide view from right to left
 function slideViewRTL() {
-	const ATTRIBUTE_VALUE = '2s ease-in-out forwards';
+	const ATTRIBUTE_VALUE = '1s ease-in-out forwards';
 
 	viewWelcome.style.animation = `SlideOutToLeft ${ATTRIBUTE_VALUE}`;
 	viewGame.style.animation = `SlideInFromRight ${ATTRIBUTE_VALUE}`;
@@ -218,7 +217,7 @@ function slideViewRTL() {
 
 // Slide view from left to right
 function slideViewLTR() {
-	const ATTRIBUTE_VALUE = '2s ease-in-out forwards';
+	const ATTRIBUTE_VALUE = '1s ease-in-out forwards';
 	viewWelcome.style.animation = `SlideInFromLeft ${ATTRIBUTE_VALUE}`;
 	viewGame.style.animation = `SlideOutToRight ${ATTRIBUTE_VALUE}`;
 }
@@ -226,18 +225,31 @@ function slideViewLTR() {
 let gameState;
 let gameClock;
 
+
+function setGridSize(size) {
+	gameGrid.classList.remove('medium');
+	gameGrid.classList.remove('large');
+	gameGrid.classList.remove('small');
+
+	gameGrid.classList.add(size);
+}
+
+
 btnEasy.addEventListener('click', function () {
-	gameState = new GameState(GAME_DATA, 6);
-	//gameClock = new GameClock();
-	slideViewRTL();
-});
-btnMedium.addEventListener('click', function () {
+	setGridSize('small');
 	gameState = new GameState(GAME_DATA, 8);
 	//gameClock = new GameClock();
 	slideViewRTL();
 });
+btnMedium.addEventListener('click', function () {
+	setGridSize('medium');
+	gameState = new GameState(GAME_DATA, 12);
+	//gameClock = new GameClock();
+	slideViewRTL();
+});
 btnHard.addEventListener('click', function () {
-	gameState = new GameState(GAME_DATA, 10);
+	setGridSize('large');
+	gameState = new GameState(GAME_DATA, 18);
 	//gameClock = new GameClock();
 	slideViewRTL();
 });
