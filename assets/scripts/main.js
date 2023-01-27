@@ -36,6 +36,7 @@ const btnShowLeaderboard = document.getElementById('btn-leaderboard');
 
 // Dynamic Game Elements
 const gameTimeDisplay = document.getElementById('game-clock');
+const gameScoreDisplay = document.getElementById('game-score');
 const gameGrid = document.getElementById('game-grid');
 const gameMatches = document.getElementById('game-matches');
 const gameTime = document.getElementById('game-time');
@@ -148,6 +149,8 @@ class GameState {
 				this.#pairsToMatch--;
 				this.#selected = [];
 
+				this.#UpdateScore();
+
 				if (this.#pairsToMatch === 0) {
 					setTimeout(() => {
 						alert('You Won!');
@@ -172,8 +175,8 @@ class GameState {
 		return Math.floor(Math.random() * multiplier);
 	}
 
-	GetScore() {
-		return this.#score;
+	#UpdateScore() {
+		gameScoreDisplay.innerHTML = this.#score;
 	}
 }
 
