@@ -21,6 +21,8 @@ class GameElements {
 
 	#GenerateMarkup(data) {
 		let nodes = [];
+		
+		console.log(data)
 
 		data.forEach(item => {
 			let node = document.createElement('div');
@@ -48,12 +50,12 @@ class GameElements {
 		let targetSize = initialSize * 2;
 
 		// Map array values to an array
-		Object.value(this.#data).forEach(item => source.push(item));
+		Object.values(this.#data).forEach(item => source.push(item));
 
 		// Pick N items from source at random
 		while(selection.length < initialSize) {
 			let index = this.#GetNumber(source.length);
-			selection.push(source.splice(index, 1));
+			selection.push(...source.splice(index, 1));
 		}
 
 		// Duplicate selected items to form pairs
@@ -62,7 +64,7 @@ class GameElements {
 		// Randomise selected items
 		while(items.length < targetSize) {
 			let index = this.#GetNumber(selection.length);
-			items.push(selection.splice(index, 1));
+			items.push(...selection.splice(index, 1));
 		}
 
 		return items;

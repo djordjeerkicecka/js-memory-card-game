@@ -28,10 +28,9 @@ function startGame(fieldSize, items, componentRefs) {
 	let [fieldRef, scoreRef, timeRef, modalRef] = componentRefs;
 	console.log(fieldRef, scoreRef, timeRef, modalRef)
 
-	animateStart();
-	setPlayingFieldSize(fieldSize);
+	setPlayingFieldSize(fieldRef, fieldSize);
 
-	return new GameState(GAME_DATA, items, fieldRef, scoreRef, clockRef, modalRef);
+	return new GameState(GAME_DATA, items, fieldRef, scoreRef, timeRef, modalRef);
 }
 
 function attachClickHandlers(handler) {
@@ -42,10 +41,9 @@ function attachClickHandlers(handler) {
 	}));
 }
 
-function animateWindow() {
-
-	viewWelcome.style.animation = `SlideOutToLeft ${ANIMATION_DATA}`;
-	viewGame.style.animation = `SlideInFromRight ${ANIMATION_DATA}`;
+function animateWindow(startRef, gameRef) {
+	startRef.style.animation = `SlideOutToLeft ${ANIMATION_DATA}`;
+	gameRef.style.animation = `SlideInFromRight ${ANIMATION_DATA}`;
 }
 
 function setPlayingFieldSize(field, size) {
@@ -66,19 +64,23 @@ function ShowModalRegister(modalRef) {
 
 let gameState;
 const modalRefs = [modalGameOver, modalStatusScore, modalStatusTime];
-const componentRefs = [playingField, statusScore, statusTime, modalRefs]
+const componentRefs = [playingField, statusScore, statusTime, modalRefs];
+
+console.log(componentRefs);
+
+console.log(...componentRefs)
 
 startBtnEasy.addEventListener('click', function () { 
-	animateWindow();
-	gameState = startGame('small', 8, ...componentRefs);
+	animateWindow(windowStart, windowGame);
+	gameState = startGame('small', 8, componentRefs);
 });
 
 startBtnMedium.addEventListener('click', function () { 
-	animateWindow();
-	gameState = startGame('medium', 12, ...componentRefs);
+	animateWindow(windowStart, windowGame);
+	gameState = startGame('medium', 12, componentRefs);
 });
 
 startBtnHard.addEventListener('click', function () { 
-	animateWindow();
-	gameState = startGame('big', 18, ...componentRefs);
+	animateWindow(windowStart, windowGame);
+	gameState = startGame('big', 18, componentRefs);
 });
