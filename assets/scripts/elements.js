@@ -19,13 +19,15 @@ const gameTime = document.getElementById('game-time');
 
 // Modals
 const modalGameOver = document.getElementById('game-over');
+const modalRegister = document.getElementById('player-register');
 
 // Modal Buttons
-const btnResetGame = document.getElementById('play-again-yes');
-const btnDontResetGame = document.getElementById('play-again-no');
+const btnResetGame = document.getElementById('restart-yes');
+const btnDontResetGame = document.getElementById('restart-no');
 
 // Form
 const formElement = document.getElementById('input-form');
+const formInput = document.getElementById('form-input');
 
 // Leaderboard
 const tableBody = document.getElementById('table-body');

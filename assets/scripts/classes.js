@@ -101,8 +101,8 @@ class GameClock {
 		this.#timerElement.innerHTML = value;
 	}
 
-	Stop(ref) {
-		clearInterval(ref);
+	Stop() {
+		clearInterval(this.#timerRef);
 	}
 }
 

@@ -41,16 +41,16 @@
 		<!-- Game Over Modal -->
 		<section class="modal game-over" id="game-over">
 			<section class="modal-wrapper">
-				<h2>Game over!</h2>
+				<h2>You Won!</h2>
 				<h3>
 					You got the score of <span id="end-score">X</span> in
 					<span id="game-time">Y</span> seconds
 				</h3>
 
 				<nav>
-					<h3>Want to try again?</h3>
-					<button class="btn-yes" id="play-again-yes">Yes! Try Again</button>
-					<button class="btn-no" id="play-again-no">No. End the game</button>
+					<h3>Restart?</h3>
+					<button class="btn-yes" id="restart-yes">Yes!</button>
+					<button class="btn-no" id="restart-no">No.</button>
 				</nav>
 			</section>
 		</section>
@@ -63,6 +63,7 @@
 				<form id="input-form">
 					<input
 						type="text"
+						id="form-input"
 						placeholder="Write your name here"
 						pattern="[A-Za-z]{3,16}"
 						maxlength="16" />

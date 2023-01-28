@@ -37,17 +37,40 @@ function attachClickHandlers(handler) {
 	}));
 }
 
+function Reset() {
+	window.location.reload(false);
+}
+
+function ShowModalRegister() {
+	modalRegister.style.display = 'flex';
+}
+
+function SortLeaderboard() {
+	leaderboard = leaderboard.sort((a, b) => a < b);
+}
+
 
 let gameState;
 let gameEndElements = [modalGameOver, gameScore, gameTime];
 let stateSetup;
 
+let leaderboard = localStorage.getItem('leaderboard');
+console.log(leaderboard)
+
+if(leaderboard) {
+	console.log(leaderboard)
+	SortLeaderboard();
+}else {
+	leaderboard = [];
+}
+
+
 console.log(gameEndElements)
 
 
 btnEasy.addEventListener('click', function () {
-	stateSetup = ['small', 8, gameScoreDisplay, gameTimeDisplay, gameEndElements];
-	gameState = initialiseGameState('small', 8, gameScoreDisplay, gameTimeDisplay, gameEndElements);
+	stateSetup = ['small', 4, gameScoreDisplay, gameTimeDisplay, gameEndElements];
+	gameState = initialiseGameState('small', 4, gameScoreDisplay, gameTimeDisplay, gameEndElements);
 	attachClickHandlers(gameState);
 })
 
@@ -61,5 +84,27 @@ btnHard.addEventListener('click', function () {
 	stateSetup = ['large', 18, gameScoreDisplay, gameTimeDisplay, gameEndElements];
 	gameState = initialiseGameState('large', 18, gameScoreDisplay, gameTimeDisplay, gameEndElements);
 	attachClickHandlers(gameState);
+})
+
+btnResetGame.addEventListener('click', function() {
+	Reset();
+})
+
+btnDontResetGame.addEventListener('click', function() {
+	ShowModalRegister();
+})
+
+formElement.addEventListener('submit', function(event) {
+	event.preventDefault();
+	let name = formInput.value;
+	let score = +gameScoreDisplay.innerHTML;
+
+	let player = {name, score};
+
+	leaderboard.push(player);
+	SortLeaderboard();
+
+	localStorage.clear('leaderboard');
+	localStorage.setItem('leaderboard', leaderboard);
 })
 
