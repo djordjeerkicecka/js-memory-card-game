@@ -22,8 +22,6 @@ class GameElements {
 	#GenerateMarkup(data) {
 		let nodes = [];
 		
-		console.log(data)
-
 		data.forEach(item => {
 			let node = document.createElement('div');
 			let child = document.createElement('img');
@@ -156,7 +154,6 @@ class GameState {
         let currentTime = this.#gameClock.GetTime();
         let currentScore = this.#score;
 		
-        console.log(this.#modal);
         this.#modal[0].style.display = 'flex';
         this.#modal[1].innerHTML = currentScore;
         this.#modal[2].innerHTML = currentTime;

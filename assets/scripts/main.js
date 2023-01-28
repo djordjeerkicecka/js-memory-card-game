@@ -66,10 +66,6 @@ let gameState;
 const modalRefs = [modalGameOver, modalStatusScore, modalStatusTime];
 const componentRefs = [playingField, statusScore, statusTime, modalRefs];
 
-console.log(componentRefs);
-
-console.log(...componentRefs)
-
 startBtnEasy.addEventListener('click', function () { 
 	animateWindow(windowStart, windowGame);
 	gameState = startGame('small', 8, componentRefs);
