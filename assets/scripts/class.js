@@ -150,11 +150,11 @@ class GameState {
 	}
 
     #EndGame() {
-        console.log(this.#gameEndRefs);
-        this.#gameClock.Stop();
+		this.#gameClock.Stop();
         let currentTime = this.#gameClock.GetTime();
         let currentScore = this.#score;
-
+		
+        console.log(this.#modal);
         this.#modal[0].style.display = 'flex';
         this.#modal[1].innerHTML = currentScore;
         this.#modal[2].innerHTML = currentTime;

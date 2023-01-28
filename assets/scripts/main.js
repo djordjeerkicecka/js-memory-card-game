@@ -22,11 +22,16 @@ const GAME_DATA = {
 	tile20: { id: 20, src: './assets/img/20.png' }
 };
 
-function initialiseGameState(gridSize, itemNumber, scoreboard, timer, endElements) {
-	slideViewRTL();
-	setGridSize(gridSize);
+const ANIMATION_DATA = '1s ease-in-out forwards';
 
-	return new GameState(GAME_DATA, itemNumber, gameGrid, scoreboard, timer, endElements)
+function startGame(fieldSize, items, componentRefs) {
+	let [fieldRef, scoreRef, timeRef, modalRef] = componentRefs;
+	console.log(fieldRef, scoreRef, timeRef, modalRef)
+
+	animateStart();
+	setPlayingFieldSize(fieldSize);
+
+	return new GameState(GAME_DATA, items, fieldRef, scoreRef, clockRef, modalRef);
 }
 
 function attachClickHandlers(handler) {
@@ -37,97 +42,43 @@ function attachClickHandlers(handler) {
 	}));
 }
 
-// Slide view from right to left
-function slideViewRTL() {
-	const ATTRIBUTE_VALUE = '1s ease-in-out forwards';
+function animateWindow() {
 
-	viewWelcome.style.animation = `SlideOutToLeft ${ATTRIBUTE_VALUE}`;
-	viewGame.style.animation = `SlideInFromRight ${ATTRIBUTE_VALUE}`;
+	viewWelcome.style.animation = `SlideOutToLeft ${ANIMATION_DATA}`;
+	viewGame.style.animation = `SlideInFromRight ${ANIMATION_DATA}`;
 }
 
-// Slide view from left to right
-function slideViewLTR() {
-	const ATTRIBUTE_VALUE = '1s ease-in-out forwards';
-	viewWelcome.style.animation = `SlideInFromLeft ${ATTRIBUTE_VALUE}`;
-	viewGame.style.animation = `SlideOutToRight ${ATTRIBUTE_VALUE}`;
-}
+function setPlayingFieldSize(field, size) {
+	field.classList.remove('medium');
+	field.classList.remove('large');
+	field.classList.remove('small');
 
-function setGridSize(size) {
-	gameGrid.classList.remove('medium');
-	gameGrid.classList.remove('large');
-	gameGrid.classList.remove('small');
-
-	gameGrid.classList.add(size);
+	field.classList.add(size);
 }
 
 function Reset() {
 	window.location.reload(false);
 }
 
-function ShowModalRegister() {
-	modalRegister.style.display = 'flex';
+function ShowModalRegister(modalRef) {
+	modalRef.style.display = 'flex';
 }
-
-function SortLeaderboard() {
-	leaderboard = leaderboard.sort((a, b) => a < b);
-}
-
 
 let gameState;
-let gameEndElements = [modalGameOver, gameScore, gameTime];
-let stateSetup;
+const modalRefs = [modalGameOver, modalStatusScore, modalStatusTime];
+const componentRefs = [playingField, statusScore, statusTime, modalRefs]
 
-let leaderboard = localStorage.getItem('leaderboard');
-console.log(leaderboard)
+startBtnEasy.addEventListener('click', function () { 
+	animateWindow();
+	gameState = startGame('small', 8, ...componentRefs);
+});
 
-if(leaderboard) {
-	console.log(leaderboard)
-	SortLeaderboard();
-}else {
-	leaderboard = [];
-}
+startBtnMedium.addEventListener('click', function () { 
+	animateWindow();
+	gameState = startGame('medium', 12, ...componentRefs);
+});
 
-
-console.log(gameEndElements)
-
-
-btnEasy.addEventListener('click', function () {
-	stateSetup = ['small', 4, gameScoreDisplay, gameTimeDisplay, gameEndElements];
-	gameState = initialiseGameState('small', 4, gameScoreDisplay, gameTimeDisplay, gameEndElements);
-	attachClickHandlers(gameState);
-})
-
-btnMedium.addEventListener('click', function () {
-	stateSetup = ['medium', 12, gameScoreDisplay, gameTimeDisplay, gameEndElements];
-	gameState = initialiseGameState('medium', 12, gameScoreDisplay, gameTimeDisplay, gameEndElements);
-	attachClickHandlers(gameState);
-})
-
-btnHard.addEventListener('click', function () {
-	stateSetup = ['large', 18, gameScoreDisplay, gameTimeDisplay, gameEndElements];
-	gameState = initialiseGameState('large', 18, gameScoreDisplay, gameTimeDisplay, gameEndElements);
-	attachClickHandlers(gameState);
-})
-
-btnResetGame.addEventListener('click', function() {
-	Reset();
-})
-
-btnDontResetGame.addEventListener('click', function() {
-	ShowModalRegister();
-})
-
-formElement.addEventListener('submit', function(event) {
-	event.preventDefault();
-	let name = formInput.value;
-	let score = +gameScoreDisplay.innerHTML;
-
-	let player = {name, score};
-
-	leaderboard.push(player);
-	SortLeaderboard();
-
-	localStorage.clear('leaderboard');
-	localStorage.setItem('leaderboard', leaderboard);
-})
-
+startBtnHard.addEventListener('click', function () { 
+	animateWindow();
+	gameState = startGame('big', 18, ...componentRefs);
+});

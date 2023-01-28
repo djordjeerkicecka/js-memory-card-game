@@ -29,4 +29,4 @@ const statusScore = document.getElementById('status--score');
 const statusTime = document.getElementById('status--time');
 
 // Game Window Playing Field
-const playingField = document.getElementsById('playing-field');
+const playingField = document.getElementById('playing-field');
