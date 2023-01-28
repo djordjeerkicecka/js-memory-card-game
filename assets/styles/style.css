@@ -27,7 +27,7 @@ body {
 
 /* View Styles */
 
-.view {
+.window {
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -79,20 +79,20 @@ body {
 
 /* View - Welcome */
 
-.welcome-view {
+#window--start {
 	padding-top: 17rem;
 }
 
-.welcome-view h1 {
+#window--start h1 {
 	font-size: 3rem;
 	font-weight: 300;
 }
 
-.welcome-view nav {
+#window--start nav {
 	margin: 2rem 0;
 }
 
-.welcome-view nav button {
+#window--start nav button {
 	font-size: 1.7rem;
 	padding: 1rem 2rem;
 	margin-inline-end: 2rem;
@@ -103,26 +103,26 @@ body {
 	transition: background 0.35s ease-in-out;
 }
 
-.welcome-view nav button:is(:active, :hover, :focus) {
+#window--start nav button:is(:active, :hover, :focus) {
 	background: var(--terciary);
 }
 
-.welcome-view h3 {
+#window--start h3 {
 	font-weight: 300;
 	font-size: 2rem;
 }
 
-.welcome-view h3 #btn-leaderboard {
+#window--start h3 #btn-leaderboard {
 	text-decoration: none;
 	color: var(--terciary);
 	position: relative;
 }
 
-.welcome-view h3 #btn-leaderboard:is(:active, :hover, :focus)::after {
+#window--start h3 #btn-leaderboard:is(:active, :hover, :focus)::after {
 	width: 100%;
 }
 
-.welcome-view h3 #btn-leaderboard::after {
+#window--start h3 #btn-leaderboard::after {
 	content: '';
 	display: block;
 	height: 2px;
@@ -136,30 +136,30 @@ body {
 
 /* View - Game*/
 
-.game-view {
+#window--game {
 	left: 100%;
 	justify-content: space-around;
 }
 
-.game-view header {
+#window--game header {
 	width: 70%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
 
-.game-view header h2 {
+#window--game header h2 {
 	font-size: 2rem;
 	font-weight: 300;
 }
 
-.game-view header h3 {
+#window--game header h3 {
 	font-weight: 300;
 	font-size: 1.5rem;
 	align-self: flex-end;
 }
 
-.game-view .game-grid {
+#window--game #playing-field{
 	border: 2px solid white;
 	width: 80%;
 	height: 90%;
@@ -170,34 +170,34 @@ body {
 	cursor: pointer;
 }
 
-.game-view .game-grid.small {
+#window--game #playing-field.small {
 	grid-template-columns: repeat(4, 1fr);
 	grid-template-rows: repeat(4, 1fr);
 }
-.game-view .game-grid.medium {
+#window--game #playing-field.medium {
 	grid-template-columns: repeat(6, 1fr);
 	grid-template-rows: repeat(4, 150px);
 }
 
-.game-view .game-grid.large {
+#window--game #playing-field.large {
 	grid-template-columns: repeat(6, 1fr);
 	grid-template-rows: repeat(6, 1fr);
 }
 
-.game-grid .card {
+#playing-field .card {
 	background: var(--terciary);
 	border-radius: 1rem;
 	overflow: hidden;
 }
 
-.game-grid .card .card-img {
+#playing-field .card .card-img {
 	height: 100%;
 	width: 100%;
 	transition: all 0.35s ease-in-out;
 	transform: rotateY(90deg);
 }
 
-.game-grid .card.clicked .card-img {
+#playing-field .card.clicked .card-img {
 	transform: rotateY(0deg);
 }
 
@@ -262,26 +262,26 @@ body {
 	transition: all 0.35s ease-in-out;
 }
 
-.modal-wrapper nav button.btn-yes {
+.modal-wrapper nav button#modal--btn-yes {
 	color: var(--light);
 	background-color: var(--terciary);
 	border-color: var(--terciary);
 }
 
-.modal-wrapper nav button.btn-yes:is(:hover, :active, :focus) {
+.modal-wrapper nav button#modal--btn-yes:is(:hover, :active, :focus) {
 	background: var(--primary);
 }
 
-.modal-wrapper nav button.btn-no {
+.modal-wrapper nav button#modal--btn-no {
 	color: var(--light);
 	position: relative;
 }
 
-.modal-wrapper nav button.btn-no:is(:hover, :active, :focus)::after {
+.modal-wrapper nav button#modal--btn-no:is(:hover, :active, :focus)::after {
 	width: 84%;
 }
 
-.modal-wrapper nav button.btn-no::after {
+.modal-wrapper nav button#modal--btn-no::after {
 	content: '';
 	display: block;
 	width: 0;
@@ -295,21 +295,21 @@ body {
 
 /* Game Over Modal */
 
-.game-over {
+#modal--game-over{
 	display: none;
 }
 
 /* Player Register Modal */
-.player-register {
+#modal--register {
 	display: none;
 }
 
-.player-register .modal-wrapper {
+#modal--register .modal-wrapper {
 	width: 55%;
 	padding: 2rem 1rem;
 }
 
-.player-register .modal-wrapper h2 {
+#modal--register .modal-wrapper h2 {
 	text-align: center;
 	text-transform: initial;
 	margin-bottom: 2rem;
@@ -317,13 +317,13 @@ body {
 	padding-inline: 1.5rem;
 }
 
-.player-register .modal-wrapper form {
+#modal--register .modal-wrapper form {
 	display: flex;
 	flex-direction: column;
 	width: 70%;
 }
 
-.player-register form input {
+#modal--register form input {
 	border: none;
 	border-radius: 1rem;
 	margin-bottom: 1.5rem;
@@ -333,15 +333,15 @@ body {
 	padding: 0.7rem 1rem 0.5rem;
 	color: var(--light);
 }
-.player-register form input::placeholder {
+#modal--register form input::placeholder {
 	color: rgba(242, 242, 242, 0.2);
 }
 
-.player-register form input:is(:active, :hover, :focus) {
+#modal--register form input:is(:active, :hover, :focus) {
 	outline: none;
 }
 
-.player-register form button {
+#modal--register form button {
 	margin: 0 auto;
 	padding: 0.8rem 1.3rem;
 	font-size: 1.3rem;
@@ -354,58 +354,7 @@ body {
 	transition: all 0.35s ease-in-out;
 }
 
-.player-register form button:is(:active, :hover, :focus) {
+#modal--register form button:is(:active, :hover, :focus) {
 	color: var(--terciary);
 	background: var(--light);
-}
-
-/* Leaderboard Styles */
-.leaderboard {
-	display: none;
-}
-
-.leaderboard .modal-wrapper {
-	padding: 2rem;
-	width: 45%;
-}
-
-.leaderboard h2 {
-	font-size: 2rem;
-	margin-bottom: 2rem;
-}
-
-.leaderboard table {
-	width: 100%;
-	border-collapse: collapse;
-}
-
-.leaderboard table tr {
-	border-bottom: 2px solid rgba(242, 242, 242, 0.2);
-}
-
-.leaderboard th {
-	font-size: 1.7rem;
-	font-weight: 400;
-	text-transform: capitalize;
-	padding-bottom: 0.5rem;
-}
-
-.leaderboard td {
-	font-size: 1.2rem;
-	padding: 0.5rem 0 0.5rem;
-}
-
-.leaderboard th:first-child {
-	text-align: left;
-}
-
-.leaderboard th:last-child,
-.leaderboard td:last-child {
-	text-align: right;
-}
-
-.leaderboard nav button {
-	padding: 0.5rem 1.5rem;
-	background: var(--terciary);
-	color: var(--light);
 }
