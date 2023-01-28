@@ -1,70 +1,68 @@
 class GameElements {
 	#data;
 	#elementsCount;
-	#gameWindow;
+	#output;
 
-	constructor(data, elementsCount, gameWindow) {
+	constructor(data, elementsCount, outputRef) {
 		this.#data = data;
 		this.#elementsCount = elementsCount;
-		this.#gameWindow = gameWindow;
+		this.#output = outputRef;
 
-		this.#Render();
+		this.#RenderToOutput();
 	}
 
 	// Render elements on screen
-	#Render() {
-		let data = this.#GetArrayFromSource();
-		let nodes = this.#GenerateMarkupFromArray(data);
+	#RenderToOutput() {
+		let data = this.#MapSourceToArray();
+		let nodes = this.#GenerateMarkup(data);
 
-		nodes.forEach(item => this.#gameWindow.appendChild(item));
+		nodes.forEach(item => this.#output.appendChild(item));
 	}
 
-	#GenerateMarkupFromArray(data) {
+	#GenerateMarkup(data) {
 		let nodes = [];
 
-		data.forEach(item => nodes.push(this.#GenerateNodeFromData(item)));
+		data.forEach(item => {
+			let node = document.createElement('div');
+			let child = document.createElement('img');
+			
+			node.classList.add('card');
+			node.setAttribute('data-id', item.id);
+
+			child.classList.add('card-img');
+			child.setAttribute('src', item.src);
+			child.setAttribute('alt', `Img ID#${item.id}`);
+			
+			node.appendChild(child);
+			nodes.push(node);
+		});
         
 		return nodes;
 	}
 
-	#GenerateNodeFromData(data) {
-		let node = document.createElement('div');
-		node.classList.add('card');
-		node.setAttribute('data-id', data.id);
-
-		let child = document.createElement('img');
-		child.classList.add('card-img');
-		child.setAttribute('src', data.src);
-		child.setAttribute('alt', `cardImgId${data.id}`);
-
-		node.appendChild(child);
-
-		return node;
-	}
-
-	// Map source object item values to an array
-	#GetArrayFromSource() {
-		let sourceArray = [];
-
-		Object.values(this.#data).forEach(item => sourceArray.push(item));
-
+	#MapSourceToArray() {
+		let source = [];
 		let selection = [];
+		let items = [];
+		let initialSize = this.#elementsCount;
+		let targetSize = initialSize * 2;
 
-		// Select items from source array
-		while (selection.length < this.#elementsCount) {
-			let index = this.#GetNumber(sourceArray.length);
+		// Map array values to an array
+		Object.value(this.#data).forEach(item => source.push(item));
 
-			selection.push(...sourceArray.splice(index, 1));
+		// Pick N items from source at random
+		while(selection.length < initialSize) {
+			let index = this.#GetNumber(source.length);
+			selection.push(source.splice(index, 1));
 		}
 
-		selection = [...selection, ...selection]; // Duplicate Array
+		// Duplicate selected items to form pairs
+		selection = [...selection, ...selection];
 
-		let items = [];
-
-		while (items.length < this.#elementsCount * 2) {
+		// Randomise selected items
+		while(items.length < targetSize) {
 			let index = this.#GetNumber(selection.length);
-
-			items.push(...selection.splice(index, 1));
+			items.push(selection.splice(index, 1));
 		}
 
 		return items;
@@ -78,27 +76,23 @@ class GameElements {
 class GameClock {
 	#time;
 	#timerRef;
-	#timerElement;
+	#timerOutput;
 
-	constructor(elementRef) {
+	constructor(timerOutputRef) {
 		this.#time = 0;
 		this.#timerRef = this.#Start();
-		this.#timerElement = elementRef;
-	}
-
-	GetTime() {
-		return this.#time;
+		this.#timerOutput = timerOutputRef;
 	}
 
 	#Start() {
 		return setInterval(() => {
 			this.#time++;
-			this.UpdateDisplay(this.#time);
+			this.RenderToOutput(this.#time);
 		}, 1000);
 	}
 
-	UpdateDisplay(value) {
-		this.#timerElement.innerHTML = value;
+	RenderToOutput(value) {
+		this.#timerOutput.innerHTML = value;
 	}
 
 	Stop() {
@@ -110,20 +104,21 @@ class GameState {
 	#pairs;
     #selection;
 	#score;
-    #scoreRef;
+    #scoreUi;
+    #modal;
     #gameObject;
     #gameClock;
-    #gameEndRefs;
 
-	constructor(gameData, elementsCount, gameWindow, scoreDisplay, timeDisplay, gameEndElements) {
+	constructor(data, uniqueItems, playingFieldRef, scoreUiRef, timeUiRef, modalRefs) {
+		this.#pairs = uniqueItems;
 		this.#selection = [];
-		this.#pairs = elementsCount;
 		this.#score = 0;
-        this.#scoreRef = scoreDisplay;
-        this.#gameEndRefs = gameEndElements;
+		this.#scoreUi = scoreUiRef;
+		this.#modal = modalRefs;
 
-		this.#gameObject = new GameElements(gameData, elementsCount, gameWindow);
-		this.#gameClock = new GameClock(timeDisplay);
+
+		this.#gameObject = new GameElements(data, uniqueItems, playingFieldRef);
+		this.#gameClock = new GameClock(timeUiRef);
 	}
 
 	ProcessClick(element) {
@@ -160,13 +155,13 @@ class GameState {
         let currentTime = this.#gameClock.GetTime();
         let currentScore = this.#score;
 
-        this.#gameEndRefs[0].style.display = 'flex';
-        this.#gameEndRefs[1].innerHTML = currentScore;
-        this.#gameEndRefs[2].innerHTML = currentTime;
+        this.#modal[0].style.display = 'flex';
+        this.#modal[1].innerHTML = currentScore;
+        this.#modal[2].innerHTML = currentTime;
     }
 
 	#UpdateScore(score) {
-		this.#scoreRef.innerHTML = score;
+		this.#scoreUi.innerHTML = score;
 	}
 
 	#CheckForMatch(first, second) {
