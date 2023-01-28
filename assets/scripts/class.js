@@ -21,22 +21,22 @@ class GameElements {
 
 	#GenerateMarkup(data) {
 		let nodes = [];
-		
+
 		data.forEach(item => {
 			let node = document.createElement('div');
 			let child = document.createElement('img');
-			
+
 			node.classList.add('card');
 			node.setAttribute('data-id', item.id);
 
 			child.classList.add('card-img');
 			child.setAttribute('src', item.src);
 			child.setAttribute('alt', `Img ID#${item.id}`);
-			
+
 			node.appendChild(child);
 			nodes.push(node);
 		});
-        
+
 		return nodes;
 	}
 
@@ -51,7 +51,7 @@ class GameElements {
 		Object.values(this.#data).forEach(item => source.push(item));
 
 		// Pick N items from source at random
-		while(selection.length < initialSize) {
+		while (selection.length < initialSize) {
 			let index = this.#GetNumber(source.length);
 			selection.push(...source.splice(index, 1));
 		}
@@ -60,7 +60,7 @@ class GameElements {
 		selection = [...selection, ...selection];
 
 		// Randomise selected items
-		while(items.length < targetSize) {
+		while (items.length < targetSize) {
 			let index = this.#GetNumber(selection.length);
 			items.push(...selection.splice(index, 1));
 		}
@@ -84,6 +84,10 @@ class GameClock {
 		this.#timerOutput = timerOutputRef;
 	}
 
+	GetTime() {
+		return this.#time;
+	}
+
 	#Start() {
 		return setInterval(() => {
 			this.#time++;
@@ -102,18 +106,18 @@ class GameClock {
 
 class GameState {
 	#pairs;
-    #selection;
-	#score;
-    #scoreUi;
-    #modal;
-    #gameObject;
-    #gameClock;
+	#selection;
+	#matches;
+	#matchesUi;
+	#modal;
+	#gameObject;
+	#gameClock;
 
-	constructor(data, uniqueItems, playingFieldRef, scoreUiRef, timeUiRef, modalRefs) {
+	constructor(data, uniqueItems, playingFieldRef, matchesUiRef, timeUiRef, modalRefs) {
 		this.#pairs = uniqueItems;
 		this.#selection = [];
-		this.#score = 0;
-		this.#scoreUi = scoreUiRef;
+		this.#matches = 0;
+		this.#matchesUi = matchesUiRef;
 		this.#modal = modalRefs;
 
 
@@ -123,15 +127,15 @@ class GameState {
 
 	ProcessClick(element) {
 		if (element.classList.contains('clicked')) return; // Ignore clicks on open cards
-        if (this.#selection.length == 2) return; // Ignore click if 2 cards are open
+		if (this.#selection.length == 2) return; // Ignore click if 2 cards are open
 
 		element.classList.add('clicked');
 		this.#selection.push(element);
 
 		if (this.#selection.length === 2) {
 			if (this.#CheckForMatch(...this.#selection)) {
-				this.#score++;
-				this.#UpdateScore(this.#score);
+				this.#matches++;
+				this.#UpdateScore(this.#matches);
 				this.#pairs--;
 				this.#selection = [];
 
@@ -141,26 +145,36 @@ class GameState {
 					}, 300);
 				}
 			} else {
-                setTimeout(() => {
-                    this.#selection.forEach(item => item.classList.remove('clicked'));
-                    this.#selection = [];
-                }, 400);
+				setTimeout(() => {
+					this.#selection.forEach(item => item.classList.remove('clicked'));
+					this.#selection = [];
+				}, 400);
 			}
 		}
 	}
 
-    #EndGame() {
+	#EndGame() {
 		this.#gameClock.Stop();
-        let currentTime = this.#gameClock.GetTime();
-        let currentScore = this.#score;
-		
-        this.#modal[0].style.display = 'flex';
-        this.#modal[1].innerHTML = currentScore;
-        this.#modal[2].innerHTML = currentTime;
-    }
+		let currentTime = this.#gameClock.GetTime();
+		let currentMatches = this.#matches;
 
-	#UpdateScore(score) {
-		this.#scoreUi.innerHTML = score;
+		this.#modal[0].style.display = 'flex';
+		this.#modal[1].innerHTML = currentMatches;
+		this.#modal[2].innerHTML = currentTime;
+
+		this.#CompareTimes(currentTime);
+	}
+
+	#CompareTimes(newTime) {
+		let oldTime = localStorage.getItem('time');
+
+		if (!oldTime || oldTime > newTime) {
+			localStorage.setItem('time', newTime);
+		}
+	}
+
+	#UpdateScore(matches) {
+		this.#matchesUi.innerHTML = matches;
 	}
 
 	#CheckForMatch(first, second) {

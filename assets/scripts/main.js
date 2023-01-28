@@ -25,16 +25,15 @@ const GAME_DATA = {
 const ANIMATION_DATA = '1s ease-in-out forwards';
 
 function startGame(fieldSize, items, componentRefs) {
-	let [fieldRef, scoreRef, timeRef, modalRef] = componentRefs;
-	console.log(fieldRef, scoreRef, timeRef, modalRef)
+	let [fieldRef, matchesRef, timeRef, modalRef] = componentRefs;
 
 	setPlayingFieldSize(fieldRef, fieldSize);
 
-	return new GameState(GAME_DATA, items, fieldRef, scoreRef, timeRef, modalRef);
+	return new GameState(GAME_DATA, items, fieldRef, matchesRef, timeRef, modalRef);
 }
 
 function attachClickHandlers(handler) {
-	let items = document.querySelectorAll('.card')
+	let items = document.querySelectorAll('.card');
 
 	items.forEach(item => item.addEventListener('click', function () {
 		handler.ProcessClick(this);
@@ -62,21 +61,34 @@ function ShowModalRegister(modalRef) {
 	modalRef.style.display = 'flex';
 }
 
+function CheckForHighscore(highmatchesRef) {
+	let time = localStorage.getItem('time');
+
+	if(time) highmatchesRef.innerHTML = `Current fastest time : ${time} seconds`;
+}
+
 let gameState;
-const modalRefs = [modalGameOver, modalStatusScore, modalStatusTime];
-const componentRefs = [playingField, statusScore, statusTime, modalRefs];
+const modalRefs = [modalGameOver, modalStatusMatches, modalStatusTime];
+const componentRefs = [playingField, statusMatches, statusTime, modalRefs];
+
+CheckForHighscore(startFastestTime);
 
 startBtnEasy.addEventListener('click', function () { 
 	animateWindow(windowStart, windowGame);
 	gameState = startGame('small', 8, componentRefs);
+	attachClickHandlers(gameState);
 });
 
 startBtnMedium.addEventListener('click', function () { 
 	animateWindow(windowStart, windowGame);
-	gameState = startGame('medium', 12, componentRefs);
+	gameState = startGame('medium', 10, componentRefs);
+	attachClickHandlers(gameState);
 });
 
 startBtnHard.addEventListener('click', function () { 
 	animateWindow(windowStart, windowGame);
-	gameState = startGame('big', 18, componentRefs);
+	gameState = startGame('large', 18, componentRefs);
+	attachClickHandlers(gameState);
 });
+
+modalBtnConfirm.addEventListener('click', Reset)
