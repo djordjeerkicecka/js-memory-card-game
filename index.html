@@ -8,129 +8,66 @@
 
 		<link rel="stylesheet" href="assets/styles/style.css" />
 
-		<script src="assets/scripts/elements.js" defer></script>
-		<script src="assets/scripts/classes.js" defer></script>
-		<script src="assets/scripts/utility.js" defer></script>
-		<script src="assets/scripts/app.js" defer></script>
+		<script src="assets/scripts/vendors.js" defer></script>
+		<script src="assets/scripts/class.js" defer></script>
+		<script src="assets/scripts/main.js" defer></script>
 	</head>
 	<body>
-		<!-- Welcome View -->
-		<section class="view welcome-view" id="welcome">
+		<!-- Window Start -->
+		<section class="window" id="window--start">
 			<h1>Please select a difficulty</h1>
 			<nav>
-				<button id="easy">Easy</button>
-				<button id="medium">Medium</button>
-				<button id="hard">Hard</button>
+				<button id="start--btn-easy">Easy</button>
+				<button id="start--btn-medium">Medium</button>
+				<button id="start--btn-hard">Hard</button>
 			</nav>
 
-			<h3>View the leaderboard <a href="#" id="btn-leaderboard">here</a></h3>
+			<!-- ADD HIGH SCORE HERE -->
+			<h3 id="start--fastest-time">Play a game to set the new fastest time!</h3>
 		</section>
 
-		<!-- Game View -->
-		<section class="view game-view" id="game">
+		<!-- Window Game -->
+		<section class="window" id="window--game">
 			<header>
 				<h2>Find all matching card pairs!</h2>
-				<h3>Score: <span id="game-score">0</span> points</h3>
-				<h3>Time elapsed: <span id="game-clock">0</span> seconds</h3>
+				<h3>Score: <span id="status--score">0</span> points</h3>
+				<h3>Time elapsed: <span id="status--time"></span> seconds</h3>
 			</header>
 
-			<section class="game-grid" id="game-grid">
-			</section>
+			<section id="playing-field"></section>
 		</section>
 
-		<!-- Game Over Modal -->
-		<section class="modal game-over" id="game-over">
+		<!-- Modal Game Over -->
+		<section class="modal" id="modal--game-over">
 			<section class="modal-wrapper">
-				<h2>Game over!</h2>
+				<h2>You Won!</h2>
 				<h3>
-					You got the score of <span id="end-score">X</span> in
-					<span id="game-time">Y</span> seconds
+					You got the score of <span id="modal--status-score">X</span> in
+					<span id="modal--status-time">Y</span> seconds
 				</h3>
 
 				<nav>
-					<h3>Want to try again?</h3>
-					<button class="btn-yes" id="play-again-yes">Yes! Try Again</button>
-					<button class="btn-no" id="play-again-no">No. End the game</button>
+					<h3>Restart?</h3>
+					<button id="modal--btn-yes">Yes!</button>
+					<button id="modal--btn-no">No.</button>
 				</nav>
 			</section>
 		</section>
 
-		<!-- Player Input Modal -->
-		<section class="modal player-register" id="player-register">
+		<!-- Modal Player Input -->
+		<section class="modal" id="modal--register">
 			<section class="modal-wrapper">
 				<h2>Please enter a name to save your score</h2>
 
-				<form id="input-form">
+				<form id="modal--form">
 					<input
+						id="modal--input"
 						type="text"
 						placeholder="Write your name here"
 						pattern="[A-Za-z]{3,16}"
 						maxlength="16" />
 					<button type="submit">Save my score</button>
 				</form>
-			</section>
-		</section>
-
-		<!-- Rankings Modal -->
-		<section class="modal leaderboard" id="leaderboard">
-			<section class="modal-wrapper">
-				<h2>Leaderboard</h2>
-
-				<table>
-					<thead>
-						<tr>
-							<th>player</th>
-							<th>score</th>
-						</tr>
-					</thead>
-
-					<tbody id="table-body">
-						<tr>
-							<td>placeholder</td>
-							<td>0000</td>
-						</tr>
-						<tr>
-							<td>placeholder</td>
-							<td>0000</td>
-						</tr>
-						<tr>
-							<td>placeholder</td>
-							<td>0000</td>
-						</tr>
-						<tr>
-							<td>placeholder</td>
-							<td>0000</td>
-						</tr>
-						<tr>
-							<td>placeholder</td>
-							<td>0000</td>
-						</tr>
-						<tr>
-							<td>placeholder</td>
-							<td>0000</td>
-						</tr>
-						<tr>
-							<td>placeholder</td>
-							<td>0000</td>
-						</tr>
-						<tr>
-							<td>placeholder</td>
-							<td>0000</td>
-						</tr>
-						<tr>
-							<td>placeholder</td>
-							<td>0000</td>
-						</tr>
-						<tr>
-							<td>placeholder</td>
-							<td>0000</td>
-						</tr>
-					</tbody>
-				</table>
-
-				<nav>
-					<button id="play-again">Play Again</button>
-				</nav>
 			</section>
 		</section>
 	</body>
