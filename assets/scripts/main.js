@@ -41,8 +41,8 @@ function attachClickHandlers(handler) {
 }
 
 function animateWindow(startRef, gameRef) {
-	startRef.style.animation = `SlideOutToLeft ${ANIMATION_DATA}`;
-	gameRef.style.animation = `SlideInFromRight ${ANIMATION_DATA}`;
+	startRef.classList.add('slideOut');
+	gameRef.classList.add('slideIn');
 }
 
 function setPlayingFieldSize(field, size) {
@@ -54,6 +54,7 @@ function setPlayingFieldSize(field, size) {
 }
 
 function Reset() {
+	window.scrollTo(0);
 	window.location.reload(false);
 }
 
@@ -75,19 +76,19 @@ CheckForHighscore(startFastestTime);
 
 startBtnEasy.addEventListener('click', function () { 
 	animateWindow(windowStart, windowGame);
-	gameState = startGame('small', 8, componentRefs);
+	gameState = startGame('small', 10, componentRefs);
 	attachClickHandlers(gameState);
 });
 
 startBtnMedium.addEventListener('click', function () { 
 	animateWindow(windowStart, windowGame);
-	gameState = startGame('medium', 10, componentRefs);
+	gameState = startGame('medium', 12, componentRefs);
 	attachClickHandlers(gameState);
 });
 
 startBtnHard.addEventListener('click', function () { 
 	animateWindow(windowStart, windowGame);
-	gameState = startGame('large', 18, componentRefs);
+	gameState = startGame('large', 15, componentRefs);
 	attachClickHandlers(gameState);
 });
 

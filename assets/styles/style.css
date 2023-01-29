@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
 :root {
-	--primary: #0e1222;
-	--secondary: #232d55;
+	--primary: #060e31;
+	--secondary: #2a376a;
 	--terciary: #4c62b8;
 	--light: #f2f2f2;
 	--dark: #333;
@@ -11,179 +11,143 @@
 }
 
 * {
-	padding: 0;
 	margin: 0;
+	padding: 0;
 	box-sizing: border-box;
 }
 
 body {
 	font-family: 'Roboto', sans-serif;
-	width: 100vw;
-	height: 100vh;
 	background: var(--primary);
-	color: var(--light);
-	overflow: hidden;
+	height: 100vh;
 }
 
-/* View Styles */
+button {
+	border: none;
+	outline: none;
+	background: transparent;
+	color: var(--light);
+	padding: .5rem 1rem;
+	font-size: 1.5rem;
+	cursor: pointer;
+	transition: .35s ease-in-out;
+}
+
+/* Responsive template - remove later */
+@media screen and (min-width: 375px) {}
+@media screen and (min-width: 480px) {}
+@media screen and (min-width: 576px) {}
+@media screen and (min-width: 768px) {}
+@media screen and (min-width: 992px) {}
+@media screen and (min-width: 1200px) {}
+
+/* Window Global */
 
 .window {
-	position: absolute;
 	width: 100%;
 	height: 100%;
-	background: var(--primary);
 	display: flex;
-	align-items: center;
 	flex-direction: column;
+	height: 100vh;
+	color: var(--light);
+	border: 1px solid red;
 }
 
-@keyframes SlideOutToRight {
-	0% {
-		left: 0;
-	}
-
-	100% {
-		left: 100%;
-	}
-}
-
-@keyframes SlideInFromRight {
-	0% {
-		left: 100%;
-	}
-
-	100% {
-		left: 0;
-	}
-}
-
-@keyframes SlideOutToLeft {
-	0% {
-		left: 0;
-	}
-
-	100% {
-		left: -100%;
-	}
-}
-
-@keyframes SlideInFromLeft {
-	0% {
-		left: -100%;
-	}
-
-	100% {
-		left: 0;
-	}
-}
-
-/* View - Welcome */
+/* Window Start */
 
 #window--start {
-	padding-top: 17rem;
+	justify-content: center;
+	align-items: center;
 }
 
 #window--start h1 {
-	font-size: 3rem;
+	font-size: 2.4rem;
+	text-align: center;
 	font-weight: 300;
+	padding-inline: .5rem;
 }
 
 #window--start nav {
-	margin: 2rem 0;
+	display: flex;
+	flex-direction: column;
+	margin-block: 1rem;
 }
 
 #window--start nav button {
-	font-size: 1.7rem;
-	padding: 1rem 2rem;
-	margin-inline-end: 2rem;
-	border: none;
-	cursor: pointer;
+	margin: 1rem;
+	font-size: 1.5rem;
 	background: var(--secondary);
-	color: var(--light);
-	transition: background 0.35s ease-in-out;
-}
 
-#window--start nav button:is(:active, :hover, :focus) {
-	background: var(--terciary);
 }
 
 #window--start h3 {
-	font-weight: 300;
-	font-size: 2rem;
+	font-size: 1.3rem;
+	font-weight: 200;
+	width: 60%;
+	text-align: center;
 }
 
-#window--start h3 #btn-leaderboard {
-	text-decoration: none;
-	color: var(--terciary);
-	position: relative;
+/* Window Start Responsive */
+@media screen and (min-width: 480px) {
+	#window--start h1 {
+		font-size: 2.6rem;
+	}
+
+	#window--start nav {
+		flex-direction: row;
+	}
+
+	#window--start nav button {
+		padding: .8rem 1.6rem
+	}
+
+	#window--start h3 {
+		font-size: 1.5rem;
+		width: 100%;
+	}
+
 }
 
-#window--start h3 #btn-leaderboard:is(:active, :hover, :focus)::after {
-	width: 100%;
+@media screen and (min-width: 768px) {
+	#window--start h1 {
+		font-size: 3rem;
+	}
+
+	#window--start h3 {
+		font-size: 1.8rem;
+	}
 }
 
-#window--start h3 #btn-leaderboard::after {
-	content: '';
-	display: block;
-	height: 2px;
-	width: 0;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	background: var(--terciary);
-	transition: width 0.35s ease-in;
-}
-
-/* View - Game*/
+/* Window Game */
 
 #window--game {
-	left: 100%;
-	justify-content: space-around;
+	width: 100%;
+	height: 100%;
+	padding: 1rem 10%;
 }
 
 #window--game header {
-	width: 70%;
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
+	flex-direction: column;
+	border: 1px solid blue;
+	margin-bottom: 1rem;
 }
 
-#window--game header h2 {
-	font-size: 2rem;
+#window--game h2 {
+	font-weight: 400;
+	font-size: 1.4rem;
+	margin-bottom: .5rem;
+}
+
+#window--game h3 {
 	font-weight: 300;
+	margin-bottom: .3rem;
 }
 
-#window--game header h3 {
-	font-weight: 300;
-	font-size: 1.5rem;
-	align-self: flex-end;
+#window--game #playing-field {
+	border: 1px solid pink;
 }
 
-#window--game #playing-field{
-	border: 2px solid white;
-	width: 80%;
-	height: 90%;
-	display: grid;
-	grid-auto-rows: 1fr;
-	gap: 1rem;
-	padding: 1rem;
-	cursor: pointer;
-}
-
-#window--game #playing-field.small {
-	grid-template-columns: repeat(4, 1fr);
-	grid-template-rows: repeat(4, 1fr);
-}
-#window--game #playing-field.medium {
-	grid-template-columns: repeat(4, 1fr);
-	grid-template-rows: repeat(4, 1fr);
-	grid-auto-rows: 1fr;
-}
-
-#window--game #playing-field.large {
-	grid-template-columns: repeat(6, 1fr);
-	grid-template-rows: repeat(6, 1fr);
-}
 
 #playing-field .card {
 	background: var(--terciary);
@@ -191,162 +155,50 @@ body {
 	overflow: hidden;
 }
 
-#playing-field .card .card-img {
+#playing-field .card.clicked >.card-img {
+	transform: rotateY(0);
+}
+
+#playing-field .card-img {
 	height: 100%;
 	width: 100%;
-	transition: all 0.35s ease-in-out;
+	transition: transform .35s ease-in-out;
 	transform: rotateY(90deg);
 }
 
-#playing-field .card.clicked .card-img {
-	transform: rotateY(0deg);
+#playing-field {
+	display: grid;
+	padding: .5rem;
+	gap: .5rem;
 }
 
-/* Modal Styles */
+#playing-field.small {
+	grid-template-columns: repeat(5, 1fr);
+	grid-auto-rows: 1fr
+}
+
+@media screen and (min-width: 576px) {
+	#playing-field.small {
+		width: 90%;
+		margin: 0 auto;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	#playing-field.small {
+		width: 80%;
+		margin: 0 auto;
+		grid-template-columns: repeat(6, 1fr);
+	}
+
+}
+
+@media screen and (min-width: 992px) {
+	#playing-field.small {
+		grid-template-columns: repeat(7, 1fr);
+	}
+}
 
 .modal {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	background: rgba(51, 51, 51, 0.3);
-}
-
-.modal-wrapper {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: space-between;
-	background: var(--secondary);
-	padding: 5rem;
-	border: 1rem solid var(--terciary);
-	border-radius: 2rem;
-}
-
-.modal-wrapper h2 {
-	font-size: 2.2rem;
-	font-weight: 400;
-	text-transform: uppercase;
-}
-
-.modal-wrapper > h3 {
-	font-size: 1.5rem;
-	font-weight: 300;
-	margin-block: 1rem 2rem;
-}
-
-.modal-wrapper nav h3 {
-	font-size: 1.3rem;
-	font-weight: 300;
-	text-align: center;
-	margin-bottom: 1rem;
-}
-
-.modal-wrapper nav button {
-	margin-top: 1rem;
-	padding: 1rem 1rem;
-	font-size: 1.2rem;
-	border: 2px solid transparent;
-	background: transparent;
-	cursor: pointer;
-	transition: all 0.35s ease-in-out;
-}
-
-.modal-wrapper nav button#modal--btn-yes {
-	color: var(--light);
-	background-color: var(--terciary);
-	border-color: var(--terciary);
-}
-
-.modal-wrapper nav button#modal--btn-yes:is(:hover, :active, :focus) {
-	background: var(--primary);
-}
-
-.modal-wrapper nav button#modal--btn-no {
-	color: var(--light);
-	position: relative;
-}
-
-.modal-wrapper nav button#modal--btn-no:is(:hover, :active, :focus)::after {
-	width: 84%;
-}
-
-.modal-wrapper nav button#modal--btn-no::after {
-	content: '';
-	display: block;
-	width: 0;
-	position: absolute;
-	height: 2px;
-	bottom: 15%;
-	left: 0.9rem;
-	background: var(--light);
-	transition: width 0.35s ease-in-out;
-}
-
-/* Game Over Modal */
-
-#modal--game-over{
 	display: none;
-}
-
-/* Player Register Modal */
-#modal--register {
-	display: none;
-}
-
-#modal--register .modal-wrapper {
-	width: 55%;
-	padding: 2rem 1rem;
-}
-
-#modal--register .modal-wrapper h2 {
-	text-align: center;
-	text-transform: initial;
-	margin-bottom: 2rem;
-	font-size: 1.8rem;
-	padding-inline: 1.5rem;
-}
-
-#modal--register .modal-wrapper form {
-	display: flex;
-	flex-direction: column;
-	width: 70%;
-}
-
-#modal--register form input {
-	border: none;
-	border-radius: 1rem;
-	margin-bottom: 1.5rem;
-	font-size: 1.2rem;
-	font-weight: 200;
-	background: var(--terciary);
-	padding: 0.7rem 1rem 0.5rem;
-	color: var(--light);
-}
-#modal--register form input::placeholder {
-	color: rgba(242, 242, 242, 0.2);
-}
-
-#modal--register form input:is(:active, :hover, :focus) {
-	outline: none;
-}
-
-#modal--register form button {
-	margin: 0 auto;
-	padding: 0.8rem 1.3rem;
-	font-size: 1.3rem;
-	text-transform: capitalize;
-	border: none;
-	outline: none;
-	cursor: pointer;
-	color: var(--light);
-	background: var(--terciary);
-	transition: all 0.35s ease-in-out;
-}
-
-#modal--register form button:is(:active, :hover, :focus) {
-	color: var(--terciary);
-	background: var(--light);
 }
