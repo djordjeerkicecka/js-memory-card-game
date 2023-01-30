@@ -57,8 +57,9 @@ function Reset() {
 	window.location.reload(false);
 }
 
-function ShowModalRegister(modalRef) {
-	modalRef.classList.add('open');
+function CloseModal(modalRef) {
+	modalRef.classList.add('close');
+	modalRef.classList.remove('open');
 }
 
 function CheckForHighscore(highmatchesRef) {
@@ -97,4 +98,8 @@ startBtnHard.addEventListener('click', function () {
 	attachClickHandlers(gameState);
 });
 
-modalBtnConfirm.addEventListener('click', Reset)
+modalBtnConfirm.addEventListener('click', Reset);
+modalBtnDecline.addEventListener('click', function() {
+	CloseModal(modalGameOver)
+});
+

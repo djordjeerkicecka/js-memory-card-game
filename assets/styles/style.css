@@ -347,45 +347,6 @@ button {
 	background: var(--terciary);
 } 
 
-#modal--register .modal-wrapper {
-	padding: 3rem 3rem;
-}
-
-#modal--register h2 {
-	font-size: 2rem;
-	font-weight: 300;
-	margin-bottom: 1rem;
-	text-align: center;
-}
-
-#modal--register #modal--form {
-	display: flex;
-	flex-direction: column;
-}
-
-#modal--form input {
-	width: 80%;
-	margin: 1rem auto 1rem;
-	font-size: 1.3rem;
-	border: 1px solid var(--light);
-	background: var(--terciary);
-	padding: .5rem 1rem;
-	border-radius: 1rem;
-	color: var(--light);
-	text-align: center;
-}
-
-#modal--form input::placeholder {
-	color: rgba(255, 255, 255, .3);
-}
-
-#modal--form button  {
-	width: fit-content;
-	margin: 0 auto;
-	padding: 1rem 2rem;
-	font-size: 1.rem;
-}
-
 #modal--form button:is(:hover, :active, :focus) {
 	background: var(--terciary);
 }
@@ -403,7 +364,7 @@ button {
 }
 
 .modal.close .modal-wrapper{
-	animation: modalContentClose .5s ease-in-out 2s forwards;
+	animation: modalContentClose .5s ease-in-out forwards;
 }
 
 @keyframes modalOpen {
