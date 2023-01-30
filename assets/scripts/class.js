@@ -158,7 +158,7 @@ class GameState {
 		let currentTime = this.#gameClock.GetTime();
 		let currentMatches = this.#matches;
 
-		this.#modal[0].style.display = 'flex';
+		this.#modal[0].classList.add('open');
 		this.#modal[1].innerHTML = currentMatches;
 		this.#modal[2].innerHTML = currentTime;
 

@@ -54,12 +54,11 @@ function setPlayingFieldSize(field, size) {
 }
 
 function Reset() {
-	window.scrollTo(0);
 	window.location.reload(false);
 }
 
 function ShowModalRegister(modalRef) {
-	modalRef.style.display = 'flex';
+	modalRef.classList.add('open');
 }
 
 function CheckForHighscore(highmatchesRef) {
@@ -68,9 +67,15 @@ function CheckForHighscore(highmatchesRef) {
 	if(time) highmatchesRef.innerHTML = `Current fastest time : ${time} seconds`;
 }
 
+
 let gameState;
 const modalRefs = [modalGameOver, modalStatusMatches, modalStatusTime];
 const componentRefs = [playingField, statusMatches, statusTime, modalRefs];
+
+// Scroll To Top On Page Load
+(function() {
+	window.scrollTo(0, 0)
+})
 
 CheckForHighscore(startFastestTime);
 

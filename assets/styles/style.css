@@ -21,6 +21,7 @@ body {
 	background: var(--primary);
 	height: 100vh;
 	height: 100dvh;
+	overflow: hidden;
 }
 
 button {
@@ -32,21 +33,9 @@ button {
 	font-size: 1.5rem;
 	cursor: pointer;
 	transition: 0.35s ease-in-out;
+	position: relative;
 }
 
-/* Responsive template - remove later */
-@media screen and (min-width: 375px) {
-}
-@media screen and (min-width: 480px) {
-}
-@media screen and (min-width: 576px) {
-}
-@media screen and (min-width: 768px) {
-}
-@media screen and (min-width: 992px) {
-}
-@media screen and (min-width: 1200px) {
-}
 
 /* Window Global */
 
@@ -55,8 +44,40 @@ button {
 	height: 100%;
 	display: flex;
 	flex-direction: column;
+	position: absolute;
+	top: 0;
+	left: 0;
 	height: 100vh;
 	color: var(--light);
+}
+
+.window.slideOut {
+	animation: slideOutTop 1.5s ease-in-out forwards;
+}
+
+.window.slideIn {
+	animation: slideInBottom 1.5s ease-in-out forwards;
+}
+
+
+@keyframes slideOutTop {
+	0% {
+		transform: translateY(0);
+	}
+
+	100% {
+		transform: translateY(-100%);
+	}
+}
+
+@keyframes slideInBottom {
+	0% {
+		transform: translateY(0);
+	}
+
+	100% {
+		transform: translateY(-100%);
+	}
 }
 
 /* Window Start */
@@ -64,6 +85,9 @@ button {
 #window--start {
 	justify-content: center;
 	align-items: center;
+	cursor: default;
+	user-select: none;
+	top: 0;
 }
 
 #window--start h1 {
@@ -83,6 +107,11 @@ button {
 	margin: 1rem;
 	font-size: 1.5rem;
 	background: var(--secondary);
+	transition: all .35s ease-in-out;
+}
+
+#window--start nav button:is(:hover, :active, :focus) {
+	background: var(--terciary);
 }
 
 #window--start h3 {
@@ -127,6 +156,7 @@ button {
 	height: 100%;
 	width: 100%;
 	padding: 10%;
+	top: 100%;
 }
 
 #window--game .wrapper {
@@ -265,9 +295,6 @@ button {
 	}
 }
 
-#modal--game-over {
-	display: none;
-}
 
 .modal {
 	width: 100%;
@@ -279,6 +306,8 @@ button {
 	position: fixed;
 	top: 0;
 	background: rgba(0, 0, 0, .3);
+	overflow: hidden;
+	transform: scale(0, 0);
 }
 
 .modal .modal-wrapper {
@@ -286,6 +315,7 @@ button {
 	padding: 1.5rem 3rem;
 	color: var(--light);
 	background: var(--secondary);
+	transform: scale(0);
 }
 
 #modal--game-over h2 {
@@ -360,6 +390,74 @@ button {
 	background: var(--terciary);
 }
 
-.modal.show {
+.modal.open {
 	animation: modalOpen 2s ease-in-out forwards;
+}
+
+.modal.close {
+	animation: modalClose 2s ease-in-out forwards;
+}
+
+.modal.open .modal-wrapper{
+	animation: modalContentOpen .5s ease-in-out 2s forwards;
+}
+
+.modal.close .modal-wrapper{
+	animation: modalContentClose .5s ease-in-out 2s forwards;
+}
+
+@keyframes modalOpen {
+	0% {
+		transform: scale(0, 0);
+	}
+
+	50% {
+		transform: scale(1, 0);
+	}
+
+	100% {
+		transform: scale(1, 1);
+	}
+}
+
+@keyframes modalClose {
+	0% {
+		transform: scale(1, 1);
+	}
+	
+	50% {
+		transform: scale(1, 0);
+	}
+	
+	100% {
+		transform: scale(0, 0);
+	}
+}
+
+@keyframes modalContentOpen {
+	0% {
+		transform: scale(0, 0);
+	}
+
+	50% {
+		transform: scale(1, 0);
+	}
+
+	100% {
+		transform: scale(1, 1);
+	}
+}
+
+@keyframes modalContentClose {
+	0% {
+		transform: scale(1, 1);
+	}
+	
+	50% {
+		transform: scale(1, 0);
+	}
+	
+	100% {
+		transform: scale(0, 0);
+	}
 }
