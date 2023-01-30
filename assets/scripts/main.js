@@ -41,8 +41,8 @@ function attachClickHandlers(handler) {
 }
 
 function animateWindow(startRef, gameRef) {
-	startRef.style.animation = `SlideOutToLeft ${ANIMATION_DATA}`;
-	gameRef.style.animation = `SlideInFromRight ${ANIMATION_DATA}`;
+	startRef.classList.add('slideOut');
+	gameRef.classList.add('slideIn');
 }
 
 function setPlayingFieldSize(field, size) {
@@ -57,8 +57,9 @@ function Reset() {
 	window.location.reload(false);
 }
 
-function ShowModalRegister(modalRef) {
-	modalRef.style.display = 'flex';
+function CloseModal(modalRef) {
+	modalRef.classList.add('close');
+	modalRef.classList.remove('open');
 }
 
 function CheckForHighscore(highmatchesRef) {
@@ -67,28 +68,38 @@ function CheckForHighscore(highmatchesRef) {
 	if(time) highmatchesRef.innerHTML = `Current fastest time : ${time} seconds`;
 }
 
+
 let gameState;
 const modalRefs = [modalGameOver, modalStatusMatches, modalStatusTime];
 const componentRefs = [playingField, statusMatches, statusTime, modalRefs];
+
+// Scroll To Top On Page Load
+(function() {
+	window.scrollTo(0, 0)
+})
 
 CheckForHighscore(startFastestTime);
 
 startBtnEasy.addEventListener('click', function () { 
 	animateWindow(windowStart, windowGame);
-	gameState = startGame('small', 8, componentRefs);
+	gameState = startGame('small', 10, componentRefs);
 	attachClickHandlers(gameState);
 });
 
 startBtnMedium.addEventListener('click', function () { 
 	animateWindow(windowStart, windowGame);
-	gameState = startGame('medium', 10, componentRefs);
+	gameState = startGame('medium', 12, componentRefs);
 	attachClickHandlers(gameState);
 });
 
 startBtnHard.addEventListener('click', function () { 
 	animateWindow(windowStart, windowGame);
-	gameState = startGame('large', 18, componentRefs);
+	gameState = startGame('large', 15, componentRefs);
 	attachClickHandlers(gameState);
 });
 
-modalBtnConfirm.addEventListener('click', Reset)
+modalBtnConfirm.addEventListener('click', Reset);
+modalBtnDecline.addEventListener('click', function() {
+	CloseModal(modalGameOver)
+});
+
