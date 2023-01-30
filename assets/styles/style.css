@@ -20,6 +20,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	background: var(--primary);
 	height: 100vh;
+	height: 100dvh;
 }
 
 button {
@@ -27,19 +28,25 @@ button {
 	outline: none;
 	background: transparent;
 	color: var(--light);
-	padding: .5rem 1rem;
+	padding: 0.5rem 1rem;
 	font-size: 1.5rem;
 	cursor: pointer;
-	transition: .35s ease-in-out;
+	transition: 0.35s ease-in-out;
 }
 
 /* Responsive template - remove later */
-@media screen and (min-width: 375px) {}
-@media screen and (min-width: 480px) {}
-@media screen and (min-width: 576px) {}
-@media screen and (min-width: 768px) {}
-@media screen and (min-width: 992px) {}
-@media screen and (min-width: 1200px) {}
+@media screen and (min-width: 375px) {
+}
+@media screen and (min-width: 480px) {
+}
+@media screen and (min-width: 576px) {
+}
+@media screen and (min-width: 768px) {
+}
+@media screen and (min-width: 992px) {
+}
+@media screen and (min-width: 1200px) {
+}
 
 /* Window Global */
 
@@ -50,7 +57,6 @@ button {
 	flex-direction: column;
 	height: 100vh;
 	color: var(--light);
-	border: 1px solid red;
 }
 
 /* Window Start */
@@ -64,7 +70,7 @@ button {
 	font-size: 2.4rem;
 	text-align: center;
 	font-weight: 300;
-	padding-inline: .5rem;
+	padding-inline: 0.5rem;
 }
 
 #window--start nav {
@@ -77,7 +83,6 @@ button {
 	margin: 1rem;
 	font-size: 1.5rem;
 	background: var(--secondary);
-
 }
 
 #window--start h3 {
@@ -98,14 +103,13 @@ button {
 	}
 
 	#window--start nav button {
-		padding: .8rem 1.6rem
+		padding: 0.8rem 1.6rem;
 	}
 
 	#window--start h3 {
 		font-size: 1.5rem;
 		width: 100%;
 	}
-
 }
 
 @media screen and (min-width: 768px) {
@@ -119,86 +123,243 @@ button {
 }
 
 /* Window Game */
-
 #window--game {
-	width: 100%;
 	height: 100%;
-	padding: 1rem 10%;
+	width: 100%;
+	padding: 10%;
+}
+
+#window--game .wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
 #window--game header {
 	display: flex;
-	flex-direction: column;
-	border: 1px solid blue;
-	margin-bottom: 1rem;
+	flex-flow: row wrap;
+	justify-content: space-around;
 }
 
 #window--game h2 {
-	font-weight: 400;
-	font-size: 1.4rem;
-	margin-bottom: .5rem;
+	text-align: center;
+	width: 100%;
+	font-size: 1.8rem;
+	font-weight: 300;
+	margin-bottom: 0.4rem;
 }
 
 #window--game h3 {
-	font-weight: 300;
-	margin-bottom: .3rem;
+	display: inline;
+	font-size: 1.4rem;
+	font-weight: 200;
+	margin-bottom: 0.2rem;
 }
 
-#window--game #playing-field {
-	border: 1px solid pink;
-}
-
-
-#playing-field .card {
-	background: var(--terciary);
-	border-radius: 1rem;
+#playing-field > .card {
+	background: var(--secondary);
+	border-radius: 25%;
 	overflow: hidden;
+	cursor: pointer;
+	transition: all 0.35s ease-in-out;
 }
 
-#playing-field .card.clicked >.card-img {
-	transform: rotateY(0);
+#playing-field > .card:is(:hover, :active, :focus) {
+	background: var(--terciary);
 }
 
-#playing-field .card-img {
-	height: 100%;
+#playing-field > .card.clicked > .card-img {
+	transform: rotateY(180deg);
+}
+
+#playing-field > .card .card-img {
 	width: 100%;
-	transition: transform .35s ease-in-out;
+	height: 100%;
 	transform: rotateY(90deg);
+	transition: all 0.35s ease-in-out;
 }
 
 #playing-field {
-	display: grid;
-	padding: .5rem;
-	gap: .5rem;
+	margin-top: 1rem;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	gap: 0.5rem;
 }
 
-#playing-field.small {
-	grid-template-columns: repeat(5, 1fr);
-	grid-auto-rows: 1fr
+#playing-field.small > .card {
+	flex: 1 0 calc(20% - 1rem);
+}
+
+#playing-field.medium > .card {
+	flex: 1 0 calc(18% - 1rem);
+}
+
+#playing-field.large > .card {
+	flex: 1 0 calc(18% - 1rem);
 }
 
 @media screen and (min-width: 576px) {
-	#playing-field.small {
-		width: 90%;
-		margin: 0 auto;
+	#playing-field {
+		padding-inline: 5%;
 	}
+
 }
 
 @media screen and (min-width: 768px) {
+	#window--game {
+		justify-content: center;
+		padding-inline: 5%;
+	}
+
+	#window--game header {
+		flex-direction: column;
+		justify-content: flex-start;
+	}
+
+	#window--game h2 {
+		text-align: left;
+		margin-bottom: 1rem;
+	}
+
+	#window--game h3 {
+		margin-bottom: 1rem;
+	}
+
+	#window--game .wrapper {
+		flex-direction: row;
+	}
+
+	#window--game header {
+		flex: 0 1 auto;
+	}
+	#playing-field {
+		margin-top: 0;
+		padding-inline: 0;
+		padding-left: 10%;
+	}
+
 	#playing-field.small {
-		width: 80%;
-		margin: 0 auto;
-		grid-template-columns: repeat(6, 1fr);
+		flex: 1 0 60%;
+	}
+
+	#playing-field.medium {
+		flex: 1 0 45%;
+	}
+
+	#playing-field.large {
+		flex: 1 0 35%;
 	}
 
 }
 
 @media screen and (min-width: 992px) {
-	#playing-field.small {
-		grid-template-columns: repeat(7, 1fr);
+	#window--game {
+		padding: 10%;
 	}
 }
 
-.modal {
+@media screen and (min-width: 1200px) {
+	#window--game {
+		padding: 40% 10%;
+	}
+}
+
+#modal--game-over {
 	display: none;
+}
+
+.modal {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	top: 0;
+	background: rgba(0, 0, 0, .3);
+}
+
+.modal .modal-wrapper {
+	text-align: center;
+	padding: 1.5rem 3rem;
+	color: var(--light);
+	background: var(--secondary);
+}
+
+#modal--game-over h2 {
+	font-size: 2rem;
+	font-weight: 300;
+	margin-bottom: 1rem;
+}
+
+#modal--game-over .modal-wrapper > h3 {
+	font-size: 1.5rem;
+	font-weight: 200;
+	margin-bottom: 2rem;
+}
+
+#modal--game-over nav > h3 {
+	font-size: 1.3rem;
+	font-weight: 200;
+	margin-bottom: 1.5rem;
+} 
+
+#modal--game-over nav > button {
+	font-size: 1.2rem;
+	margin-inline: 1rem;
+	padding-inline: 2rem;
+	border: 1px solid var(--terciary);
+}
+
+#modal--game-over nav > button:is(:hover, :active, :focus) {
+	background: var(--terciary);
+} 
+
+#modal--register .modal-wrapper {
+	padding: 3rem 3rem;
+}
+
+#modal--register h2 {
+	font-size: 2rem;
+	font-weight: 300;
+	margin-bottom: 1rem;
+	text-align: center;
+}
+
+#modal--register #modal--form {
+	display: flex;
+	flex-direction: column;
+}
+
+#modal--form input {
+	width: 80%;
+	margin: 1rem auto 1rem;
+	font-size: 1.3rem;
+	border: 1px solid var(--light);
+	background: var(--terciary);
+	padding: .5rem 1rem;
+	border-radius: 1rem;
+	color: var(--light);
+	text-align: center;
+}
+
+#modal--form input::placeholder {
+	color: rgba(255, 255, 255, .3);
+}
+
+#modal--form button  {
+	width: fit-content;
+	margin: 0 auto;
+	padding: 1rem 2rem;
+	font-size: 1.rem;
+}
+
+#modal--form button:is(:hover, :active, :focus) {
+	background: var(--terciary);
+}
+
+.modal.show {
+	animation: modalOpen 2s ease-in-out forwards;
 }
