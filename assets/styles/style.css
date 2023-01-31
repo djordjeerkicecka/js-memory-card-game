@@ -49,7 +49,6 @@ button {
 	left: 0;
 	height: 100vh;
 	color: var(--light);
-	border: 1px solid red;
 }
 
 .window.slideOut {
