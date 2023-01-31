@@ -49,6 +49,7 @@ button {
 	left: 0;
 	height: 100vh;
 	color: var(--light);
+	border: 1px solid red;
 }
 
 .window.slideOut {
@@ -284,16 +285,16 @@ button {
 }
 
 @media screen and (min-width: 992px) {
-	#window--game {
-		padding: 10%;
+	#window--game header {
+		flex: 1 1 auto;
+	}
+
+	#playing-field.small {
+		flex: 1 1 40%;
 	}
 }
 
-@media screen and (min-width: 1200px) {
-	#window--game {
-		padding: 40% 10%;
-	}
-}
+
 
 
 .modal {
